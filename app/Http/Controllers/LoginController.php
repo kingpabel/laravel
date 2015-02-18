@@ -34,6 +34,23 @@ class LoginController extends Controller {
     }
 
 
+    public function postCheckCompany()
+    {
+        $credentials = array(
+            'company_user_name' => Request::input('company_user_name'),
+            'password' => Request::input('password'),
+        );
+        return Request::input('company_user_name');
+        if(Auth::attempt( $credentials ))
+        {
+            return redirect()->intended('user');
+        }
+        else
+        {
+            return redirect('/');
+        }
+    }
+
 
 
 }
