@@ -1,48 +1,28 @@
 <?php namespace App;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Auth;
-class Company extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-    use Authenticatable, CanResetPassword;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+class Company extends Model {
     protected $table = 'company_info';
+
     public $timestamps = true;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_user_name', 'company_email', 'password'];
+    protected $fillable = array('*');
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['password', 'remember_token'];
-
+    /* Start Boot */
     public static function boot()
     {
         parent::boot();
+
         static::creating(function($post)
         {
-            $post->created_by = Auth::company()->id;
-            $post->updated_by = Auth::company()->id;
+            $post->created_by = Auth::user()->id;
+            $post->updated_by = Auth::user()->id;
         });
+
         static::updating(function($post)
         {
-            $post->updated_by = Auth::company()->id;
+            $post->updated_by = Auth::user()->id;
         });
-    }
-
+    }/* END Boot */
 }
