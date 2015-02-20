@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['name', 'email', 'password','company_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -43,6 +43,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         {
             $post->updated_by = Auth::user()->id;
         });
+    }
+
+    public function Company()
+    {
+        return $this->belongsTo('App\Company','id','user_id');
     }
 
 }
