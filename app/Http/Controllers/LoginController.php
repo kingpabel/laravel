@@ -25,32 +25,14 @@ class LoginController extends Controller {
 //         Config::set('auth.model', 'CompanyUser');
         if(Auth::attempt( $credentials ))
         {
+            if(Auth::user()->user_label == 2)
             return redirect()->intended('user');
+            if(Auth::user()->user_label == 1)
+                return redirect()->intended('company');
         }
         else
         {
             return redirect('/');
         }
     }
-
-
-    public function postCheckCompany()
-    {
-        $credentials = array(
-            'company_user_name' => Request::input('company_user_name'),
-            'password' => Request::input('password'),
-        );
-        return Request::input('company_user_name');
-        if(Auth::attempt( $credentials ))
-        {
-            return redirect()->intended('user');
-        }
-        else
-        {
-            return redirect('/');
-        }
-    }
-
-
-
 }
