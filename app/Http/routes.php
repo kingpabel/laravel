@@ -17,13 +17,14 @@ Route::get('/', function()
 	return View::make('loginPage');
 });
 });
+
 Route::controller('login','LoginController');
+
 Route::group(['middleware' => 'auth'], function(){
 Route::controller('user','UserController');
 });
-/*Route::get('home', 'HomeController@index');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);*/
+Route::group(['middleware' => 'auth.company'], function(){
+Route::controller('company','CompanyController');
+});
+
