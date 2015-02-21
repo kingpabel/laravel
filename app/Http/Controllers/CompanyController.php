@@ -67,7 +67,7 @@ class CompanyController extends Controller
                 $userCreate->username = trim(Request::input('username'));
                 $userCreate->password = Hash::make(trim(Request::input('password')));
                 $userCreate->ip_address = trim(Request::input('ip_address'));
-                $userCreate->company_id = Auth::user()->id;
+                $userCreate->company_id = Auth::user()->company_id;
                 $userCreate->save();
             endif;
             Session::flash('flashSuccess', 'User Created Successfully');
@@ -78,8 +78,32 @@ class CompanyController extends Controller
 
     public  function getAllUser()
     {
-        $total_user = $this->Users->find('Company')->all();
-        $this->set('total_user', $total_user);
+        $data['allUser'] = \App\User::where('company_id', Auth::user()->company_id)
+            ->where('user_label', '>', 1)->get();
+        return view('Company.allUser',$data);
+    }
+
+    public function anyStatusChange($id = null)
+    {
+        return 'dsa';
+        return Request::input('status');
+    }
+
+    public  function postAddIp()
+    {
+        $rules = array(
+                'ip_address' => 'required|ip'
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return  $validator->messages()->first();
+            else:
+                $userCreate = \App\User::find(Request::input('id'));
+                $userCreate->ip_address = trim(Request::input('ip_address'));
+                $userCreate->save();
+            endif;
+            return 'true';
     }
     public function getLogout()
     {
