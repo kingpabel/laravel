@@ -44,17 +44,43 @@ class CompanyController extends Controller
                                                         $q->where('company_id', Auth::user()->company_id);
                                                         })->where('admin_noti_status', 1)->count();
         return view('Company.home',$data);
-        /*
-        $query = $this->UserDetails->find();
-        $late_user = $query->contain(['Users'])
-            ->where(array('login_date' => date('Y-m-d', time())))
-            ->where(array('Users.company_id' => $this->Auth->user('id')))
-            ->where(array('UserDetails.status' => 'Late'))
-            ->group(array('UserDetails.user_id'))
-            ->order(array('UserDetails.id' => 'ASC'))
-            ->all();*/
     }
 
+    public function anyCreateUser()
+    {
+        if (Request::all()) {
+//            return 'fsd';
+            $ignoreID = Auth::user()->id;
+            $rules = array(
+                'username'=> "unique:users,username|alpha_dash",
+                'password'  => 'required|min:6|max:10',
+                'ip_address' => 'sometimes|ip'
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                $validationError =  $validator->messages()->first();
+                Session::flash('flashError', $validationError);
+                return redirect('company/create-user');
+            else:
+                $userCreate = new \App\User();
+                $userCreate->username = trim(Request::input('username'));
+                $userCreate->password = Hash::make(trim(Request::input('password')));
+                $userCreate->ip_address = trim(Request::input('ip_address'));
+                $userCreate->company_id = Auth::user()->id;
+                $userCreate->save();
+            endif;
+            Session::flash('flashSuccess', 'User Created Successfully');
+            return redirect('company/create-user');
+        }
+        return view('Company.createUser');
+    }
+
+    public  function getAllUser()
+    {
+        $total_user = $this->Users->find('Company')->all();
+        $this->set('total_user', $total_user);
+    }
     public function getLogout()
     {
         Auth::logout();
