@@ -35,14 +35,7 @@ class AuthenticateCompany {
 	{
 		if ($this->auth->guest())
 		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
 				return redirect()->guest('/');
-			}
 		}
         elseif(Auth::user()->user_label == 2){
             return redirect()->intended('user');
