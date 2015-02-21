@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>
+<head style="display: inline !important;">
+    <title>Kingpabel ATN
     </title>
     {!! HTML::script('js/charisma/js/jquery-1.7.2.min.js') !!}
-    {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
     {!! HTML::script('js/bootstrap/js/bootstrap-alert.js') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap-responsive.css') !!}
     {!! HTML::style('css/charisma/css/bootstrap-cerulean.css') !!}
     {!! HTML::style('css/charisma/css/charisma-app.css') !!}
     {!! HTML::style('css/jquery-ui.css') !!}
+    {!! HTML::style('css/charisma/css/uniform.default.css') !!}
     {!! HTML::style('css/charisma/css/opa-icons.css') !!}
     {!! HTML::style('css/pnotify/jquery.pnotify.default.icons.css') !!}
     {!! HTML::style('css/pnotify/jquery.pnotify.default.css') !!}
+    {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
     @yield('jsBottom')
     <script>
         $(function() {
@@ -34,6 +35,12 @@
             $(".input").bind("keyup blur",function() {
                 var $th = $(this);
                 $th.val( $th.val().replace(/[^A-z0-9,#. _@-]/g, function(str) { return ''; } ) );
+            });
+        })
+        $(function(){
+            $(".number").bind("keyup blur",function() {
+                var $th = $(this);
+                $th.val( $th.val().replace(/[^0-9-.]/g, function(str) { return ''; } ) );
             });
         })
     </script>
@@ -74,8 +81,6 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- <li><a href="#">Profile</a></li>
-                     <li class="divider"></li> -->
                     <li>
                         {!! link_to("company/logout","Logout") !!}
 
@@ -95,10 +100,10 @@
             <div class="well nav-collapse sidebar-nav">
                 <ul class="nav nav-tabs nav-stacked main-menu">
                     <li class="nav-header hidden-tablet"> Main</li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'index'))?>"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company') !!}"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
                     <li class="nav-header hidden-tablet"> User</li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'addUser'))?>"><i class="icon-plus"></i><span class="hidden-tablet"> Add User</span></a></li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'totalUser'))?>"><i class="icon-list"></i><span class="hidden-tablet"> Total User</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/create-user') !!}"><i class="icon-plus"></i><span class="hidden-tablet"> Create User</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/all-user') !!}"><i class="icon-list"></i><span class="hidden-tablet"> All User</span></a></li>
                     <li class="nav-header hidden-tablet"> Edit</li>
                     <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'updateInfo'))?>"><i class="icon-edit"></i><span class="hidden-tablet"> Update Info</span></a></li>
                     <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'passwordChange'))?>"><i class="icon-edit"></i><span class="hidden-tablet"> Password Change</span></a></li>
@@ -136,6 +141,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {!! HTML::script('js/jquery-ui.js') !!}
+{!! HTML::script('js/bootstrap-modal.js') !!}
 {!! HTML::script('js/charisma/js/bootstrap-dropdown.js') !!}
 {!! HTML::script('js/charisma/js/bootstrap-tab.js') !!}
 {!! HTML::script('js/charisma/js/bootstrap-tooltip.js') !!}
@@ -143,16 +149,17 @@
 {!! HTML::script('js/charisma/js/jquery.cookie.js') !!}
 {!! HTML::script('js/charisma/js/jquery.chosen.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uniform.min.js') !!}
-{!! HTML::script('js/charisma/js/jquery.uniform.min.js') !!}
+{!! HTML::script('js/charisma/js/jquery.colorbox.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.cleditor.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.noty.js') !!}
 {!! HTML::script('js/charisma/js/jquery.elfinder.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.raty.min.js') !!}
-{!! HTML::script('js/charisma/js/jquery.iphone.toggle.js') !!}
+{!! HTML::script('js/charisma/js/jquery.iphone.toggle.js' )!!}
 {!! HTML::script('js/charisma/js/jquery.autogrow-textarea.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uploadify-3.1.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.history.js') !!}
-{!! HTML::script('js/charisma/js/charisma.js') !!}
+{{--{!! HTML::script('js/charisma/js/charisma.js') !!}--}}
+
 
 </body>
 </html>
