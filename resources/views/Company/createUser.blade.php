@@ -66,6 +66,7 @@
         });
     </script>
 
+
     <?php $punch_message_success=Session::get('flashSuccess');; if ($punch_message_success) { ?>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -95,11 +96,4 @@
 
     <?php } ?>
 @endsection
-@section('jsBottom')
-{{--    {!! HTML::script('js/inputmusk.js') !!}
-<script>
-    $('.ipAddress').inputmask({
-        mask: '99.99.99'
-    })
-</script>--}}
-    @endsection
+

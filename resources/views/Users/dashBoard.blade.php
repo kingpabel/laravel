@@ -99,7 +99,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $.pnotify({
-            title: 'Logout',
+            title: 'Message',
             text: '<?php echo $punch_message_success ?>',
             type: 'success',
             delay: 3000

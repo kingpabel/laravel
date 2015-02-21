@@ -1,7 +1,7 @@
 @extends('Company/CompanyLayout')
 @section('content')
 
-    @if ($activeUser)
+    @if ($activeUser->count())
     <div class="alert alert-info">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong><?php $aU=$activeUser->count();
@@ -26,7 +26,7 @@
 
     @endif
     <?php
-    if($lateUser){
+    if($lateUser->count()){
     ?>
     <div class="alert alert-info">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
