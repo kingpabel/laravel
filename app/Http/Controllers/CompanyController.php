@@ -4,6 +4,7 @@ use App\LeaveCategories;
 use App\UserDetails;
 use Auth;
 use Request;
+use Response;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -78,32 +79,64 @@ class CompanyController extends Controller
 
     public  function getAllUser()
     {
-        $data['allUser'] = \App\User::where('company_id', Auth::user()->company_id)
-            ->where('user_label', '>', 1)->get();
+        $user = new \App\User();
+        $data['allUser'] = $user->allUser();
         return view('Company.allUser',$data);
     }
 
     public function anyStatusChange($id = null)
     {
-        return 'dsa';
-        return Request::input('status');
+        $status = Request::input('status');
+        $user = \App\User::find($id);
+        if($status == 'active')
+        $user->status = 1;
+        if($status == 'inactive')
+            $user->status = 0;
+        $user->save();
+        $user = new \App\User();
+        $data['allUser'] = $user->allUser();
+        return view('Company.allUserAjax',$data);
     }
 
-    public  function postAddIp()
+    public  function anyAddIp()
     {
+        $response = array();
         $rules = array(
                 'ip_address' => 'required|ip'
             );
             /* Laravel Validator Rules Apply */
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()):
-                return  $validator->messages()->first();
+                $errorMessage = $validator->messages()->first();
+                $response['type'] = 'error';
+                $response['info'] = $errorMessage;
+                return Response::json($response);
             else:
                 $userCreate = \App\User::find(Request::input('id'));
                 $userCreate->ip_address = trim(Request::input('ip_address'));
                 $userCreate->save();
             endif;
-            return 'true';
+                $user = new \App\User();
+                $data['allUser'] = $user->allUser();
+                $response['type'] = 'success';
+                $response['info'] = (String) view('Company.allUserAjax',$data);
+                return Response::json($response);
+    }
+
+    public function postRemoveIp($id)
+    {
+        $user = \App\User::find($id);
+        $user->ip_address = '';
+        $user->save();
+        $user = new \App\User();
+        $data['allUser'] = $user->allUser();
+        return view('Company.allUserAjax',$data);
+    }
+
+    public function anyUserUpdate($id)
+    {
+        $data['user'] = \App\User::find($id);
+        return view('Company.userUpdate',$data);
     }
     public function getLogout()
     {
