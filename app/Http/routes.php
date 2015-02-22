@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
 Route::controller('user','UserController');
 });
 
-//Route::group(['middleware' => 'auth.company'], function(){
+Route::group(['middleware' => 'auth.company'], function(){
 Route::controller('company','CompanyController');
-//});
+});
 
