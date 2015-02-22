@@ -50,4 +50,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('App\Company','id','user_id');
     }
 
+    public function allUser(){
+        if (Auth::check())
+        {
+           return User::where('company_id', Auth::user()->company_id)
+                ->where('user_label', '>', 1)->get();
+        }
+    }
+
 }
