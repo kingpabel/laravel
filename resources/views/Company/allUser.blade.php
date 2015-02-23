@@ -208,11 +208,4 @@
     </div>
 
 @endsection
-{{--@section('jsBottom')
-       {!! HTML::script('js/inputmusk.js') !!}
-    <script>
-    $('.ipType').inputmask({
-        mask: '999.999.999.999'
-    })
-</script>
-@endsection--}}
+
