@@ -26,14 +26,14 @@
         <a class="btn btn-info" style="text-decoration: none" id="removeIp{{ $user->id }}" href="#">
             <span class="label label-warning">Remove IP</span></a>
         <?php } else { ?>
-        <a class="btn btn-info" data-toggle="modal" href="#myReport_<?php echo $user->user_id; ?>" style="text-decoration: none" href="<?php //echo base_url() ?>company/add_ip/<?php echo $user->user_id ?>">
+        <a class="btn btn-info" data-toggle="modal" href="#myReport_<?php echo $user->id; ?>" style="text-decoration: none" href="<?php //echo base_url() ?>company/add_ip/<?php echo $user->user_id ?>">
             <span class="label label-success">Add IP</span></a>
         <?php } ?>
 
     </td>
 </tr>
 
-<div id="myReport_<?php echo $user->user_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myReport_<?php echo $user->id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Add IP</h3>
@@ -69,7 +69,7 @@
                 cache: false,
                 success: function(data) {
                     if(data.type == 'success' ){
-                        $('#myReport_<?php echo $user->user_id; ?>').modal('hide')
+                        $('#myReport_<?php echo $user->id; ?>').modal('hide')
                         $.pnotify({
                             title: 'Message',
                             text: 'IP address added successfully',
