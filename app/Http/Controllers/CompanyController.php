@@ -138,6 +138,53 @@ class CompanyController extends Controller
         $data['user'] = \App\User::find($id);
         return view('Company.userUpdate',$data);
     }
+
+    public function postUpdateUserUsername($id){
+                $rules = array(
+                    'username' => "required|alpha_dash|unique:users,username,$id",
+                );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find($id);
+                $userUpdate->username = trim(Request::input('username'));
+                $userUpdate->save();
+            endif;
+            return 'true';
+    }
+
+    public function postUpdateUserPassword($id){
+                $rules = array(
+                    'password' => "required|min:6|max:10",
+                );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find($id);
+                $userUpdate->password = Hash::make(Request::input('password'));
+                $userUpdate->save();
+            endif;
+            return 'true';
+    }
+    public function postUpdateUserTime($id){
+                $rules = array(
+                    'time' => "required",
+                );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find($id);
+                $userUpdate->time = Request::input('time');
+                $userUpdate->save();
+            endif;
+            return 'true';
+    }
     public function getLogout()
     {
         Auth::logout();
