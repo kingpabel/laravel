@@ -6,7 +6,7 @@
                 <a href="{!! URL::to('company') !!}">Home</a> <span class="divider">/</span>
             </li>
             <li>
-                <a href=''{!! URL::to("company/user-update/$user->id") !!}'>Update Info</a>
+                <a href=''{!! URL::to("company/update-me") !!}'>Update Info</a>
             </li>
 
         </ul>
@@ -21,24 +21,43 @@
                 </div>
             </div>
             <div class="box-content">
-                <form class="form-horizontal" id="company_creation" method="post" action="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'updateInfo'), true); ?>">
+                {!! Form::open(array('role' => 'form', 'id' => 'companyUpdate', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'company/update-me')) !!}
                     <fieldset>
                         <div class="control-group">
                             <label class="control-label" for="company_name">Company Name</label>
                             <div class="controls">
-                                <input type="text" required class="input-xlarge input" name="company_name" id="company_name" placeholder="company name" value="<?php //echo $info->company_name?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="company_user_name">Company User Name</label>
-                            <div class="controls">
-                                <input type="text" required class="input-xlarge input" id="company_user_name" name="company_user_name" placeholder="company user name" value="<?php// echo $info->company_user_name?>">
+                                <input type="text" required class="input-xlarge input" name="company_name" id="company_name" placeholder="company name" value="<?php echo $myInfo->Company->company_name?>">
+                                <input type="hidden" name="companyID" value="{!! $myInfo->company->id !!}">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="company_email">Company Email</label>
                             <div class="controls">
-                                <input type="email" required class="input-xlarge" id="company_email" name="company_email" placeholder="company Email" value="<?php// echo $info->company_email?>">
+                                <input type="email" required class="input-xlarge" id="company_email" name="company_email" placeholder="company Email" value="<?php echo $myInfo->Company->company_email?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="company_email">Company Phone No.</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge number" id="company_email" name="phone" placeholder="company Email" value="<?php echo $myInfo->Company->phone?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="company_user_name">User Name</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge input" id="company_user_name" name="username" placeholder="My user name" value="<?php echo $myInfo->username?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="company_user_name">First Name</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge input" id="user_first_name" name="user_first_name" placeholder="Last name" value="<?php echo $myInfo->user_first_name?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="company_user_name">Last Name</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge input" id="company_user_name" name="user_last_name" placeholder="First name" value="<?php echo $myInfo->user_last_name?>">
                             </div>
                         </div>
                         <div class="form-actions">
@@ -50,4 +69,37 @@
             </div>
         </div><!--/span-->
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#companyUpdate").submit(function(event) {
+                event.preventDefault();
+                var values = $("#companyUpdate").serialize();
+                $.ajax({
+                    url: "{!! URL::to('company/update-me') !!}",
+                    type: "POST",
+                    data: values,
+                    cache: false,
+                    success: function(data) {
+                        if(data=='true') {
+                            $.pnotify({
+                                title: 'Success',
+                                text: 'Updated Successfully',
+                                type: 'success',
+                                delay: 3000
+
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Error',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
