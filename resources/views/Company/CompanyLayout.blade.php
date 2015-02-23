@@ -15,6 +15,7 @@
     {!! HTML::style('css/pnotify/jquery.pnotify.default.icons.css') !!}
     {!! HTML::style('css/pnotify/jquery.pnotify.default.css') !!}
     {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
+
     @yield('jsBottom')
     <script>
         $(function() {
