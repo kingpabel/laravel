@@ -185,6 +185,66 @@ class CompanyController extends Controller
             endif;
             return 'true';
     }
+
+    public function anyUpdateMe()
+    {
+        if (Request::all()) {
+            $companyID = Request::input('companyID');
+            $id = Auth::user()->id;
+            $rules = array(
+                'company_name' => "required|unique:company_info,company_name,$companyID",
+                'company_email' => "required|email|unique:company_info,company_email,$companyID",
+                'phone' => "required",
+                'username' => "required|alpha_dash|unique:users,username,$id",
+                'user_first_name' => "required",
+                'user_last_name' => 'required'
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find($id);
+                $userUpdate->username = trim(Request::input('username'));
+                $userUpdate->user_first_name = trim(Request::input('user_first_name'));
+                $userUpdate->user_last_name = trim(Request::input('user_last_name'));
+                $userUpdate->Company->company_name = trim(Request::input('company_name'));
+                $userUpdate->Company->company_email = trim(Request::input('company_email'));
+                $userUpdate->Company->phone = trim(Request::input('phone'));
+                $userUpdate->push();
+            endif;
+            return 'true';
+        }
+        else{
+        $data['myInfo'] = \App\User::find(Auth::user()->id);
+        return view('Company.companyUpdate', $data);
+        }
+    }
+
+    public function anyChangePassword()
+    {
+        if (Request::all()) {
+            $rules = array(
+                'new_password'  => 'required|same:confirm_new_password|min:6',
+                'current_pass'  => 'required|password_check',
+            );
+            $messages = array(
+                'new_password.same' => 'New Password and Confirm password are not Matched',
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules, $messages);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find(Auth::user()->id);
+                $userUpdate->password = Hash::make(Request::input('new_password'));
+                $userUpdate->save();
+            endif;
+            return 'true';
+        } else{
+            return view('Company.passwordChange');
+        }
+    }
     public function getLogout()
     {
         Auth::logout();
