@@ -1,4 +1,159 @@
-@extends('Company.CompanyLayout)
+@extends('Company.CompanyLayout')
 @section('content')
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="{!! URL::to('company') !!}">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href='{!! URL::to("company/all-user") !!}'>All User</a>
+                <span class="divider">/</span>
+            </li>
+            <li>
+                <a href=''{!! URL::to("company/user-update/$user->id") !!}'>Update Info</a>
+            </li>
 
-    @endsection
+        </ul>
+    </div>
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header well" data-original-title>
+                <h2><i class="icon-edit"></i> User Update</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <form class="form-horizontal" id="">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="user_name">User Name</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge input" name="username" id="username" placeholder="user name" value="<?php echo $user->username?>">
+                                <input type="button" value="Update" class="btn btn-default" id="user_name_update">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="user_password">User Password</label>
+                            <div class="controls">
+                                <input type="password" required class="input-xlarge" id="password" name="password" placeholder="Password">
+                                <input type="button" value="Update" class="btn btn-default" id="user_password_update">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="user_name">Last In Time</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge inputmask" id="time" name="time" placeholder="Use 24 hours time format" value="<?php echo $user->time?>">
+                                <input type="button" value="Update" class="btn btn-default" id="time_update">
+                            </div>
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf">
+                    </fieldset>
+                </form>
+
+            </div>
+        </div><!--/span-->
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#user_password_update").click(function() {
+                var values = $('#password').val();
+                var csrf = $('#csrf').val();
+                $.ajax({
+                    url: '{!! URL::to("company/update-user-password/$user->id") !!}',
+                    type: "POST",
+                    data: {password: values, _token: csrf},
+                    cache: false,
+                    success: function(data) {
+                        if(data == 'true') {
+                            $.pnotify({
+                                title: 'Message',
+                                text: 'Password Updated Successfully',
+                                type: 'success',
+                                delay: 3000
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Message',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#user_name_update").click(function() {
+                var values = $('#username').val();
+                var csrf = $('#csrf').val();
+                $.ajax({
+                    url: '{!! URL::to("company/update-user-username/$user->id") !!}',
+                    type: "POST",
+                    data: {username: values, _token: csrf},
+                    cache: false,
+                    success: function(data) {
+                        if(data == 'true') {
+                            $.pnotify({
+                                title: 'Message',
+                                text: 'Username Updated Successfully',
+                                type: 'success',
+                                delay: 3000
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Message',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#time_update").click(function() {
+                var values = $('#time').val();
+                var csrf = $('#csrf').val();
+                $.ajax({
+                    url: '{!! URL::to("company/update-user-time/$user->id") !!}',
+                    type: "POST",
+                    data: {time: values, _token: csrf},
+                    cache: false,
+                    success: function(data) {
+                        if(data == 'true') {
+                            $.pnotify({
+                                title: 'Message',
+                                text: 'Time Updated Successfully',
+                                type: 'success',
+                                delay: 3000
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Message',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endsection
+@section('jsBottom')
+       {!! HTML::script('js/inputmusk.js') !!}
+       <script>
+           $(document).ready(function(){
+               $('.inputmask').inputmask("99:99:99");  //static mask
+           });
+       </script>
+@endsection
