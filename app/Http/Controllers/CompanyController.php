@@ -155,7 +155,7 @@ class CompanyController extends Controller
             return 'true';
     }
 
-    public function postUpdateUserPassword($id){
+    public function  postUpdateUserPassword($id){
                 $rules = array(
                     'password' => "required|min:6|max:10",
                 );
