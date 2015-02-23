@@ -170,7 +170,7 @@ class CompanyController extends Controller
             endif;
             return 'true';
     }
-    public function postUpdateUserTime($id){
+    public function  postUpdateUserTime($id){
                 $rules = array(
                     'time' => "required",
                 );
