@@ -31,21 +31,21 @@
                             <label class="control-label" for="user_name">User Name</label>
                             <div class="controls">
                                 <input type="text" required class="input-xlarge input" name="username" id="username" placeholder="user name" value="<?php echo $user->username?>">
-                                <input type="button" value="Update" class="btn btn-default" id="user_name_update">
+                                <input type="button" value="Update" class="btn btn-default btn btn-primary" id="user_name_update">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="user_password">User Password</label>
                             <div class="controls">
                                 <input type="password" required class="input-xlarge" id="password" name="password" placeholder="Password">
-                                <input type="button" value="Update" class="btn btn-default" id="user_password_update">
+                                <input type="button" value="Update" class="btn btn-default btn btn-primary" id="user_password_update">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="user_name">Last In Time</label>
                             <div class="controls">
                                 <input type="text" required class="input-xlarge inputmask" id="time" name="time" placeholder="Use 24 hours time format" value="<?php echo $user->time?>">
-                                <input type="button" value="Update" class="btn btn-default" id="time_update">
+                                <input type="button" value="Update" class="btn btn-default btn btn-primary" id="time_update">
                             </div>
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf">
