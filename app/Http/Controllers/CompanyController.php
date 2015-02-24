@@ -286,6 +286,18 @@ class CompanyController extends Controller
         return 'true';
     }
 
+    public function getAllLeave()
+    {
+        Leave::whereHas('User', function($q) {
+            $q->where('company_id', Auth::user()->company_id);
+        })
+            ->update(array('admin_noti_status' => 0));
+        $data['allLeave'] = Leave::whereHas('User', function($q) {
+            $q->where('company_id', Auth::user()->company_id);
+        })->get();
+        return view('Company.allLeave',$data);
+    }
+
     public function getLogout()
     {
         Auth::logout();
