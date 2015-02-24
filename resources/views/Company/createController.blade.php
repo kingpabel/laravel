@@ -1,0 +1,101 @@
+@extends('Company.CompanyLayout');
+@section('content')
+<div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="{!! URL::to('company') !!}">Home</a> <span class="divider">/</span>
+            </li>
+
+            <li>
+                <a href="{!! URL::to('company/create-holiday') !!}">Create Holiday</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header well" data-original-title>
+                <h2><i class="icon-edit"></i> Add Holiday</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                {!! Form::open(array('role' => 'form', 'id' => 'holiday_creation', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'company/create-holiday')) !!}
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="date">Select a date</label>
+                            <div class="controls">
+                                <input type="text" required readonly class="input-xlarge datepicker" id="date" name="holiday[]" placeholder="holiday">
+                            </div>
+                        </div>
+                        <div id="more" >
+
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="date"></label>
+                            <div class="controls">
+                                <button type="button" id="add" class="btn btn-default">Add More</button>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Create</button>
+                            <button type="reset" class="btn">Cancel</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div><!--/span-->
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#holiday_creation").submit(function(event) {
+                event.preventDefault();
+                var values = $("#holiday_creation").serialize();
+                $.ajax({
+                    url: "<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'addHoliday'))?>",
+                    type: "POST",
+                    data: values,
+                    cache: false,
+                    success: function(data) {
+                        if(data == true) {
+                            $.pnotify({
+                                title: 'Message',
+                                text: 'Holiday Created Successfully',
+                                type: 'success',
+                                delay: 3000
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Message',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#add").click(function(event) {
+                event.preventDefault();
+                $("#more").append('<div class="control-group"><label class="control-label">Select another date</label><div class="controls"><input required readonly type="text" readonly class="input-xlarge datepicker"  name="holiday[]" placeholder="holiday"></div></div>');
+                $(".datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat:'yy-mm-dd'
+                });
+            });
+        });
+    </script>
+
+
+
+@endsection
