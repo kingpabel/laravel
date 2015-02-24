@@ -298,6 +298,11 @@ class CompanyController extends Controller
         return view('Company.allLeave',$data);
     }
 
+    public function postLeaveGrant($id)
+    {
+        return $id;
+    }
+
     public function getLogout()
     {
         Auth::logout();

@@ -56,28 +56,29 @@
                         <td class="center">
                             <?php
                             if($leave->leave_status == 0){ ?>
-                            <a class="btn btn-success" id="grant_<?php echo $leave->leave_id ?>" >
+                            <a class="btn btn-success" id="grant_<?php echo $leave->id ?>" >
                                 <i class="icon-zoom-in icon-white"></i>Grant</a>
-                            <a class="btn btn-danger" id="reject_<?php echo $leave->leave_id ?>" >
+                            <a class="btn btn-danger" id="reject_<?php echo $leave->id ?>" >
                                 <i class="icon-trash icon-white"></i>Reject</a>
                             <?php   }
                             elseif($leave->leave_status==1){
                             ?>
-                            <a class="btn btn-danger" id="reject_<?php echo $leave->leave_id ?>"  >
+                            <a class="btn btn-danger" id="reject_<?php echo $leave->id ?>"  >
                                 <i class="icon-trash icon-white"></i> Reject</a>
                             <?php } else{?>
-                            <a class="btn btn-success" id="grant_<?php echo $leave->leave_id ?>" >
+                            <a class="btn btn-success" id="grant_<?php echo $leave->id ?>" >
                                 <i class="icon-zoom-in icon-white"></i>Grant</a>
                             <?php } ?>
-                            <a class="btn btn-danger" id="delete_<?php echo $leave->leave_id ?>">
+                            <a class="btn btn-danger" id="delete_<?php echo $leave->id ?>">
                                 <i class="icon-trash icon-white"></i>
                                 Delete
                             </a>
                         </td>
                     </tr>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf_<?php echo $leave->id ?>">
                     <script type="text/javascript">
                         $(document).ready(function() {
-                            $("#delete_<?php echo $leave->leave_id ?>").click(function(event) {
+                            $("#delete_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
                                 var values = 'status='+'delete';
                                 var chk = confirm("Are you sure to delete this?");
@@ -112,15 +113,17 @@
                     </script>
                     <script type="text/javascript">
                         $(document).ready(function() {
-                            $("#grant_<?php echo $leave->leave_id ?>").click(function(event) {
+                            $("#grant_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
-                                var values = 'status='+'grant';
+                                var values = 'grant';
+                                var csrf = $("#csrf_<?php echo $leave->id ?>").val();
+                                alert(csrf);
                                 $.ajax({
-                                    url: "<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'statusUpdate',$leave->leave_id), true); ?>",
+                                    url: '{!! URL::to("company/leave-grant/$leave->id") !!}',
                                     type: "POST",
-                                    data: values,
+                                    data: {status: values, _token: csrf},
                                     success: function(data) {
-                                        if(data == true ){
+                                        if(data == 'true' ){
                                             $.pnotify({
                                                 title: 'Message',
                                                 text: 'Status Changed.To see current view please refresh the page',
@@ -143,7 +146,7 @@
                     </script>
                     <script type="text/javascript">
                         $(document).ready(function() {
-                            $("#reject_<?php echo $leave->leave_id ?>").click(function(event) {
+                            $("#reject_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
                                 var values = 'status='+'reject';
                                 $.ajax({
