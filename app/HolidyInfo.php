@@ -1,9 +1,14 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
 class HolidayInfo extends Model {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $table = 'holiday_info';
 
     public $timestamps = true;
