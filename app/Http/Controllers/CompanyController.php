@@ -245,6 +245,12 @@ class CompanyController extends Controller
             return view('Company.passwordChange');
         }
     }
+
+    public function anyCreateHoliday()
+    {
+        return view('Company.createController');
+    }
+
     public function getLogout()
     {
         Auth::logout();
