@@ -109,7 +109,7 @@
                     <li><a class="ajax-link" href="{!! URL::to('company/update-me') !!}"><i class="icon-edit"></i><span class="hidden-tablet"> Update Info</span></a></li>
                     <li><a class="ajax-link" href="{!! URL::to('company/change-password') !!}"><i class="icon-edit"></i><span class="hidden-tablet"> Password Change</span></a></li>
                     <li class="nav-header hidden-tablet"> Holiday</li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'addHoliday'))?>"><i class="icon-calendar"></i><span class="hidden-tablet"> Create Holiday</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/create-holiday') !!}"><i class="icon-calendar"></i><span class="hidden-tablet"> Create Holiday</span></a></li>
                     <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'allHoliday'))?>"><i class="icon-list"></i><span class="hidden-tablet"> All Holiday</span></a></li>
                     <li class="nav-header hidden-tablet"> Leave</li>
                     <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'allLeave'))?>"><i class="icon-list"></i><span class="hidden-tablet"> All Leave</span></a></li>
