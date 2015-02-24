@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
+use App\Holiday;
 use App\Leave;
 use App\LeaveCategories;
 use App\UserDetails;
+use App\HolidayInfo;
 use Auth;
 use Request;
 use Response;
@@ -248,7 +250,27 @@ class CompanyController extends Controller
 
     public function anyCreateHoliday()
     {
-        return view('Company.createController');
+        if(Request::all()){
+           $holidayList = Request::input('holiday');
+
+            foreach($holidayList as $holiday){
+                if($holiday == '')
+                    return 'Please Fill All the Field';
+                $checkExisting = HolidayInfo::where('holiday', $holiday)->first();
+                if($checkExisting)
+                    return "$holiday has Already Added as a Holiday";
+            }
+
+            foreach($holidayList as $holiday){
+               $saveHoliday = new HolidayInfo();
+                $saveHoliday->holiday = $holiday;
+                $saveHoliday->save();
+            }
+            return 'true';
+
+        }else {
+            return view('Company.createHoliday');
+        }
     }
 
     public function getLogout()
