@@ -112,7 +112,7 @@
                     <li><a class="ajax-link" href="{!! URL::to('company/create-holiday') !!}"><i class="icon-calendar"></i><span class="hidden-tablet"> Create Holiday</span></a></li>
                     <li><a class="ajax-link" href="{!! URL::to('company/all-holiday') !!}"><i class="icon-list"></i><span class="hidden-tablet"> All Holiday</span></a></li>
                     <li class="nav-header hidden-tablet"> Leave</li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'allLeave'))?>"><i class="icon-list"></i><span class="hidden-tablet"> All Leave</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/all-leave') !!}"><i class="icon-list"></i><span class="hidden-tablet"> All Leave</span></a></li>
                     <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'leaveCategory'))?>"><i class="icon-th"></i><span class="hidden-tablet"> Leave Catagory</span></a></li>
                 </ul>
                 <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"></label>
