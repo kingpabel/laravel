@@ -273,6 +273,19 @@ class CompanyController extends Controller
         }
     }
 
+    public function anyAllHoliday()
+    {
+        $data['allHoliday'] = HolidayInfo::all();
+        return view('Company.allHoliday', $data);
+    }
+
+    public function anyDeleteHoliday($id)
+    {
+        $holidayDelete = HolidayInfo::find($id);
+        $holidayDelete->delete();
+        return 'true';
+    }
+
     public function getLogout()
     {
         Auth::logout();
