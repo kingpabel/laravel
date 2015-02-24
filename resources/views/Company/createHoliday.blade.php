@@ -1,4 +1,4 @@
-@extends('Company.CompanyLayout');
+@extends('Company.CompanyLayout')
 @section('content')
 <div>
         <ul class="breadcrumb">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="box-content">
-                {!! Form::open(array('role' => 'form', 'id' => 'holiday_creation', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'company/create-holiday')) !!}
+                {!! Form::open(array('id' => 'holiday_creation', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'company/create-holiday')) !!}
                     <fieldset>
                         <div class="control-group">
                             <label class="control-label" for="date">Select a date</label>
@@ -56,12 +56,12 @@
                 event.preventDefault();
                 var values = $("#holiday_creation").serialize();
                 $.ajax({
-                    url: "<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'addHoliday'))?>",
+                    url: "{!! URL::to('company/create-holiday') !!}",
                     type: "POST",
                     data: values,
                     cache: false,
                     success: function(data) {
-                        if(data == true) {
+                        if(data == 'true') {
                             $.pnotify({
                                 title: 'Message',
                                 text: 'Holiday Created Successfully',
@@ -86,7 +86,7 @@
         $(document).ready(function(){
             $("#add").click(function(event) {
                 event.preventDefault();
-                $("#more").append('<div class="control-group"><label class="control-label">Select another date</label><div class="controls"><input required readonly type="text" readonly class="input-xlarge datepicker"  name="holiday[]" placeholder="holiday"></div></div>');
+                $("#more").append('<div class="control-group"><label class="control-label">Select another date</label><div class="controls"><input required readonly type="text" readonly class="input-xlarge datepicker"  name="holiday[]" placeholder="holiday">  <button class="remove">x</button></div></div>');
                 $(".datepicker").datepicker({
                     changeMonth: true,
                     changeYear: true,
@@ -94,8 +94,8 @@
                 });
             });
         });
+        $(document).on('click', ".remove", function () {
+            $(this).parent().parent().closest(".control-group").html('');
+        });
     </script>
-
-
-
 @endsection
