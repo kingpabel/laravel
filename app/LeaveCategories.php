@@ -7,7 +7,9 @@ class LeaveCategories extends Model {
     protected $table = 'leave_categories';
 
     public $timestamps = true;
+
     protected $fillable = array('*');
+
     public function newQuery($company_id = true)
     {
         $query = parent::newQuery($company_id);
@@ -37,9 +39,5 @@ class LeaveCategories extends Model {
         });
     }/* END Boot */
 
-    /*public function CompanyInfo()
-    {
-        return $this->belongsTo('CompanyInfo','company_id','id');
-    }*/
 
 }
