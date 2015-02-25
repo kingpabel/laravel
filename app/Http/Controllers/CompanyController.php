@@ -298,9 +298,32 @@ class CompanyController extends Controller
         return view('Company.allLeave',$data);
     }
 
-    public function postLeaveGrant($id)
+    public function getChangeLeaveStatus($id)
     {
-        return $id;
+        if(Request::input('status') == 'grant'){
+            $statusChange = Leave::find($id);
+            $statusChange->leave_status = 1;
+            $statusChange->user_noti_status = 1;
+            $statusChange->save();
+        }elseif(Request::input('status') == 'reject'){
+            $statusChange = Leave::find($id);
+            $statusChange->leave_status = 2;
+            $statusChange->user_noti_status = 1;
+            $statusChange->save();
+        }elseif(Request::input('status') == 'delete'){
+            $leaveDelete = Leave::find($id);
+            $leaveDelete->delete();
+        }
+        $data['allLeave'] = Leave::whereHas('User', function($q) {
+            $q->where('company_id', Auth::user()->company_id);
+        })->get();
+        return view('Company.allLeaveAjax',$data);
+    }
+
+    public function getLeaveCategory()
+    {
+        $data['allCategory'] = LeaveCategories::all();
+        return view('Company.leaveCategory',$data);
     }
 
     public function getLogout()
