@@ -320,10 +320,43 @@ class CompanyController extends Controller
         return view('Company.allLeaveAjax',$data);
     }
 
-    public function getLeaveCategory()
+    public function anyLeaveCategory()
     {
+
+        if (Request::all()) {
+            $rules = array(
+                'category'=> "unique:leave_categories,category|alpha_dash",
+                'category_num'  => 'max:2',
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                $errorMessage =  $validator->messages()->first();
+                $response['type'] = 'error';
+                $response['info'] = $errorMessage;
+                return Response::json($response);
+            else:
+                $categoryCreate = new LeaveCategories();
+                $categoryCreate->category = trim(Request::input('category'));
+                $categoryCreate->category_num = Request::input('category_num');
+                $categoryCreate->save();
+                $response['type'] = 'success';
+                $data['allCategory'] = LeaveCategories::all();
+                $response['info'] = (String) view('Company.leaveCategoryAjax',$data);
+                return Response::json($response);
+            endif;
+
+        } else{
         $data['allCategory'] = LeaveCategories::all();
-        return view('Company.leaveCategory',$data);
+        return view('Company.leaveCategory', $data);
+    }
+    }
+
+    public function getDeleteLeaveCategory($id)
+    {
+        $leaveCategoriesDelete = LeaveCategories::find($id);
+        $leaveCategoriesDelete->delete();
+        return 'true';
     }
 
     public function getLogout()
