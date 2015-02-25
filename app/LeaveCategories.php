@@ -1,9 +1,14 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
 class LeaveCategories extends Model {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $table = 'leave_categories';
 
     public $timestamps = true;
