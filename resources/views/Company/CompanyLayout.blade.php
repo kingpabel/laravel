@@ -5,6 +5,7 @@
     </title>
     {!! HTML::script('js/charisma/js/jquery-1.7.2.min.js') !!}
     {!! HTML::script('js/bootstrap/js/bootstrap-alert.js') !!}
+    {!! HTML::script('js/charisma/js/jquery.dataTables.min.js') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap-responsive.css') !!}
     {!! HTML::style('css/charisma/css/bootstrap-cerulean.css') !!}
@@ -113,7 +114,7 @@
                     <li><a class="ajax-link" href="{!! URL::to('company/all-holiday') !!}"><i class="icon-list"></i><span class="hidden-tablet"> All Holiday</span></a></li>
                     <li class="nav-header hidden-tablet"> Leave</li>
                     <li><a class="ajax-link" href="{!! URL::to('company/all-leave') !!}"><i class="icon-list"></i><span class="hidden-tablet"> All Leave</span></a></li>
-                    <li><a class="ajax-link" href="<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'leaveCategory'))?>"><i class="icon-th"></i><span class="hidden-tablet"> Leave Catagory</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/leave-category') !!}"><i class="icon-th"></i><span class="hidden-tablet"> Leave Catagory</span></a></li>
                 </ul>
                 <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"></label>
             </div><!--/.well -->
@@ -159,7 +160,7 @@
 {!! HTML::script('js/charisma/js/jquery.autogrow-textarea.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uploadify-3.1.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.history.js') !!}
-{{--{!! HTML::script('js/charisma/js/charisma.js') !!}--}}
+{!! HTML::script('js/charisma/js/charisma.js') !!}
 
 
 </body>
