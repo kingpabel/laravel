@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <table id="example" class="display" cellspacing="0" width="100%">
+                <table id="example" class="table table-striped table-bordered bootstrap-datatable datatable" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Username</th>
@@ -32,7 +32,7 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="ajaxUpdate">
                     <?php if($allLeave){
                     foreach ($allLeave as $leave):
                     ?>
@@ -49,7 +49,7 @@
                             elseif($leave->leave_status==1){
                             ?>
                             <span class="label label-success">Granted</span>
-                            <?php } else{?>
+                            <?php } elseif($leave->leave_status==2){?>
                             <span class="label label-important">Rejected</span>
                             <?php } ?>
                         </td>
@@ -60,51 +60,50 @@
                                 <i class="icon-zoom-in icon-white"></i>Grant</a>
                             <a class="btn btn-danger" id="reject_<?php echo $leave->id ?>" >
                                 <i class="icon-trash icon-white"></i>Reject</a>
+                                <a class="btn btn-danger" id="delete_<?php echo $leave->id ?>">
+                                    <i class="icon-trash icon-white"></i>
+                                    Delete
+                                </a>
                             <?php   }
                             elseif($leave->leave_status==1){
                             ?>
                             <a class="btn btn-danger" id="reject_<?php echo $leave->id ?>"  >
                                 <i class="icon-trash icon-white"></i> Reject</a>
-                            <?php } else{?>
+                                <a class="btn btn-danger" id="delete_<?php echo $leave->id ?>">
+                                    <i class="icon-trash icon-white"></i>
+                                    Delete
+                                </a>
+                            <?php } elseif($leave->leave_status==2){?>
                             <a class="btn btn-success" id="grant_<?php echo $leave->id ?>" >
                                 <i class="icon-zoom-in icon-white"></i>Grant</a>
+                                <a class="btn btn-danger" id="delete_<?php echo $leave->id ?>">
+                                    <i class="icon-trash icon-white"></i>
+                                    Delete
+                                </a>
                             <?php } ?>
-                            <a class="btn btn-danger" id="delete_<?php echo $leave->id ?>">
-                                <i class="icon-trash icon-white"></i>
-                                Delete
-                            </a>
                         </td>
                     </tr>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf_<?php echo $leave->id ?>">
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $("#delete_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
-                                var values = 'status='+'delete';
+                                var values = 'delete';
                                 var chk = confirm("Are you sure to delete this?");
                                 if (chk)
                                 {
                                     $.ajax({
-                                        url: "<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'statusUpdate',$leave->leave_id), true); ?>",
-                                        type: "POST",
-                                        data: values,
+                                        url: '{!! URL::to("company/change-leave-status/$leave->id") !!}',
+                                        type: "GET",
+                                        data: {status: values},
                                         cache: false,
                                         success: function(data) {
-                                            if(data == true ){
                                                 $.pnotify({
                                                     title: 'Message',
-                                                    text: 'Status Deleted.To see current view please refresh the page',
+                                                    text: 'Status Deleted.',
                                                     type: 'success',
                                                     delay: 3000
                                                 });
-                                            }else{
-                                                $.pnotify({
-                                                    title: 'ERROR',
-                                                    text: data,
-                                                    type: 'error',
-                                                    delay: 3000
-                                                });
-                                            }
+                                            $("#ajaxUpdate").html(data);
                                         }
                                     });
                                 }
@@ -116,28 +115,18 @@
                             $("#grant_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
                                 var values = 'grant';
-                                var csrf = $("#csrf_<?php echo $leave->id ?>").val();
-                                alert(csrf);
                                 $.ajax({
-                                    url: '{!! URL::to("company/leave-grant/$leave->id") !!}',
-                                    type: "POST",
-                                    data: {status: values, _token: csrf},
+                                    url: '{!! URL::to("company/change-leave-status/$leave->id") !!}',
+                                    type: "GET",
+                                    data: {status: values},
                                     success: function(data) {
-                                        if(data == 'true' ){
                                             $.pnotify({
                                                 title: 'Message',
-                                                text: 'Status Changed.To see current view please refresh the page',
+                                                text: 'Status Changed.',
                                                 type: 'success',
                                                 delay: 3000
                                             });
-                                        }else{
-                                            $.pnotify({
-                                                title: 'ERROR',
-                                                text: data,
-                                                type: 'error',
-                                                delay: 3000
-                                            });
-                                        }
+                                        $("#ajaxUpdate").html(data);
                                     }
                                 });
 
@@ -148,27 +137,19 @@
                         $(document).ready(function() {
                             $("#reject_<?php echo $leave->id ?>").click(function(event) {
                                 event.preventDefault();
-                                var values = 'status='+'reject';
+                                var values = 'reject';
                                 $.ajax({
-                                    url: "<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'statusUpdate',$leave->leave_id), true); ?>",
-                                    type: "POST",
-                                    data: values,
+                                    url: '{!! URL::to("company/change-leave-status/$leave->id") !!}',
+                                    type: "GET",
+                                    data: {status: values},
                                     success: function(data) {
-                                        if(data == true ){
                                             $.pnotify({
                                                 title: 'Message',
-                                                text: 'Status Changed.To see current view please refresh the page',
+                                                text: 'Status Changed',
                                                 type: 'success',
                                                 delay: 3000
                                             });
-                                        }else{
-                                            $.pnotify({
-                                                title: 'ERROR',
-                                                text: data,
-                                                type: 'error',
-                                                delay: 3000
-                                            });
-                                        }
+                                        $("#ajaxUpdate").html(data);
                                     }
                                 });
 
@@ -196,7 +177,7 @@
 
 @endsection
 @section('jsBottom')
-    {!! HTML::script('js/jquery.dataTables.js') !!}
+    {{--{!! HTML::script('js/jquery.dataTables.js') !!}
     {!! HTML::script('js/dataTables.tableTools.js') !!}
     {!! HTML::style('css/jquery.dataTables.css') !!}
     {!! HTML::style('css/dataTables.tableTools.css') !!}
@@ -206,5 +187,5 @@
                 dom: 'T<"clear">lfrtip'
             } );
         } );
-    </script>
+    </script>--}}
 @endsection
