@@ -74,7 +74,7 @@ class CompanyController extends Controller
                 $userCreate->save();
             endif;
             Session::flash('flashSuccess', 'User Created Successfully');
-            return redirect('company/create-user');
+            return redirect('company/all-user');
         }
         return view('Company.createUser');
     }

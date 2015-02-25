@@ -206,6 +206,20 @@
             </div>
         </div><!--/span-->
     </div>
+    <?php $punch_message_success=Session::get('flashSuccess');; if ($punch_message_success) { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.pnotify({
+                title: 'Message',
+                text: '<?php echo $punch_message_success ?>',
+                type: 'success',
+                delay: 3000
+
+            });
+        });
+    </script>
+
+    <?php } ?>
 
 @endsection
 

@@ -65,29 +65,13 @@
             });
         });
     </script>
-
-
-    <?php $punch_message_success=Session::get('flashSuccess');; if ($punch_message_success) { ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $.pnotify({
-                title: 'Message',
-                text: '<?php echo $punch_message_success ?>',
-                type: 'success',
-                delay: 3000
-
-            });
-        });
-    </script>
-
-    <?php } ?>
     <?php $punch_message_error=Session::get('flashError'); if ($punch_message_error) { ?>
     <script type="text/javascript">
         $(document).ready(function() {
             $.pnotify({
                 title: 'Error',
                 text: '<?php echo $punch_message_error ?>',
-                type: 'success',
+                type: 'error',
                 delay: 3000
 
             });
