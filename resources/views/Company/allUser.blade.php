@@ -53,7 +53,7 @@
                             <?php } ?>
                         </td>
                         <td class="center">
-                            <button onclick="window.open('<?php //echo $this->Url->build(array('controller' => 'admin', 'action' => 'individualReport')) ?>?s_date=' + from.value + '&e_date=' + to.value + '&user_id=' +<?php echo $user->id ?>)" type="button" class="btn btn-success">
+                            <button onclick="window.open('{!! URL::to("company/report") !!}?s_date=' + from.value + '&e_date=' + to.value + '&id=' +<?php echo $user->id ?>)" type="button" class="btn btn-success">
 
                                 <i class="icon-zoom-in icon-white"></i>Individual Report</button>
 
