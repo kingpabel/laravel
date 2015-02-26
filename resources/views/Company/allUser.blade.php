@@ -26,7 +26,7 @@
                         <th colspan="3" style="background-color:#CCCCCC; color:#FF0000">
                             <span style="padding-top:5px"> Date Range&nbsp;&nbsp;</span><input type="text" readonly id="from" name="first_date" value="<?php echo date('Y-m-d', time());   ?>">&nbsp;&nbsp;<span style="color:black">To</span>&nbsp;&nbsp;
                             <input type="text" readonly id="to" name="second_date" value="<?php echo date('Y-m-d', time());   ?>">
-                            <button onclick="window.open('<?php //echo base_url()   ?>company/summeryReport?s_date='+datepick2.value + '&e_date='+datepick4.value)"  type="button" class="btn btn-default">
+                            <button onclick="window.open('{!! URL::to("company/summery-report") !!}?s_date=' + from.value + '&e_date=' + to.value)"  type="button" class="btn btn-default">
 
                                 Summery Report</button>
                         </th>
