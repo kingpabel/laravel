@@ -364,22 +364,42 @@
             $data['startDate'] = Request::input('s_date');
             $data['endDate'] = Request::input('e_date');
             $data['id'] = Request::input('id');
-            $attendanceReport = UserDetails::where('user_id', $data['id'])
+            $data['userInfo'] = \App\User::find($data['id']);
+            $data['attendanceReport'] = UserDetails::where('user_id', $data['id'])
                 ->where('login_date', '>=',  $data['startDate'])
                 ->where('logout_date', '<=', $data['endDate'])
                 ->orderBy('id', 'ASC')
-                ->get();
-            $allDate= $this->getDatesFromRange( $data['startDate'], $data['endDate']);
-            $allHoliday = HolidayInfo::where('holiday', '>=',  $data['startDate'])
+                ->get()
+                ->toArray();
+            $data['allDate']= $this->getDatesFromRange( $data['startDate'], $data['endDate']);
+            $data['allHoliday'] = HolidayInfo::where('holiday', '>=',  $data['startDate'])
                 ->where('holiday', '<=', $data['endDate'])
-                ->get();
-            $allLeave = Leave::where('leave_date', '>=',  $data['startDate'])
+                ->get()
+                ->toArray();
+            $data['allLeave'] = Leave::where('leave_date', '>=',  $data['startDate'])
                 ->where('leave_date', '<=', $data['endDate'])
                 ->where('user_id', $data['id'])
                 ->where('leave_status', 1)
-                ->get();
+                ->get()
+                ->toArray();
             return view('Company.report',$data);
 
+        }
+
+        public function getSummeryReport()
+        {
+            $data['startDate'] = Request::input('s_date');
+            $data['endDate'] = Request::input('e_date');
+            $data['attendanceReport'] = UserDetails::
+                select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                    'login_date','logout_date','id','login_time','logout_time')
+                ->where('login_date', '>=',  $data['startDate'])
+                ->where('logout_date', '<=', $data['endDate'])
+                ->where('logout_time', '!=', '0000-00-00 00:00:00')
+                ->orderBy('id', 'ASC')
+                ->get()
+                ->toArray();
+            return view('Company.summeryReport',$data);
         }
 
         public function getDatesFromRange($start, $end) {
