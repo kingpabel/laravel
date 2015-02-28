@@ -177,15 +177,5 @@
 
 @endsection
 @section('jsBottom')
-    {{--{!! HTML::script('js/jquery.dataTables.js') !!}
-    {!! HTML::script('js/dataTables.tableTools.js') !!}
-    {!! HTML::style('css/jquery.dataTables.css') !!}
-    {!! HTML::style('css/dataTables.tableTools.css') !!}
-    <script type="text/javascript" language="javascript" class="init">
-        $(document).ready(function() {
-            $('#example').DataTable( {
-                dom: 'T<"clear">lfrtip'
-            } );
-        } );
-    </script>--}}
+    {!! HTML::script('js/charisma/js/jquery.dataTables.min.js') !!}
 @endsection
