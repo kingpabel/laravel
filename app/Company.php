@@ -16,8 +16,10 @@ class Company extends Model {
 
         static::creating(function($post)
         {
-            $post->created_by = Auth::user()->id;
-            $post->updated_by = Auth::user()->id;
+            if (Auth::check()) {
+                $post->created_by = Auth::user()->id;
+                $post->updated_by = Auth::user()->id;
+            }
         });
 
         static::updating(function($post)
