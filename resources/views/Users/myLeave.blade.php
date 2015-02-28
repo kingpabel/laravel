@@ -39,7 +39,12 @@
                     <tr>
                         <td><?php echo Auth::user()->username?></td>
                         <td class="center"><?php echo $leave->leave_date?></td>
-                        <td class="center"><?php echo $leave->LeaveCategories->category?></td>
+                        <td class="center"><?php
+                            if(isset($leave->LeaveCategories->category))
+                                echo $leave->LeaveCategories->category;
+                            else
+                                echo 'Uncategorized';
+                            ?></td>
                         <td class="center"><?php echo $leave->leave_cause?></td>
                         <td class="center">
                             <?php
