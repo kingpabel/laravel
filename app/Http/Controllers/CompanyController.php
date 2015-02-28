@@ -365,7 +365,10 @@
             $data['endDate'] = Request::input('e_date');
             $data['id'] = Request::input('id');
             $data['userInfo'] = \App\User::find($data['id']);
-            $data['attendanceReport'] = UserDetails::where('user_id', $data['id'])
+            $data['attendanceReport'] = UserDetails::
+            select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                'login_date','logout_date','id','login_time','logout_time','user_id','status')
+                ->where('user_id', $data['id'])
                 ->where('login_date', '>=',  $data['startDate'])
                 ->where('logout_date', '<=', $data['endDate'])
                 ->orderBy('id', 'ASC')
@@ -392,13 +395,13 @@
             $data['endDate'] = Request::input('e_date');
             $data['attendanceReport'] = UserDetails::
                 select(DB::raw('timediff(logout_time,login_time) as timediff'),
-                    'login_date','logout_date','id','login_time','logout_time')
+                    'login_date','logout_date','id','login_time','logout_time','user_id')
                 ->where('login_date', '>=',  $data['startDate'])
                 ->where('logout_date', '<=', $data['endDate'])
                 ->where('logout_time', '!=', '0000-00-00 00:00:00')
                 ->orderBy('id', 'ASC')
-                ->get()
-                ->toArray();
+//                ->groupBy('user_id')
+                ->get();
             return view('Company.summeryReport',$data);
         }
 
