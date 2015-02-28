@@ -32,7 +32,7 @@
                         Out Time
                     </td>
                     <td>
-                        Working Time
+                        Working Hour
                     </td>
                     <td>
                         Status
