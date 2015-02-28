@@ -16,7 +16,7 @@ class UserController extends Controller {
 
     public function __construct()
     {
-        date_default_timezone_set('Asia/Dhaka');
+        date_default_timezone_set(Auth::user()->CompanyUser->time_zone);
     }
     public function getIndex()
     {
