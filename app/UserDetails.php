@@ -13,7 +13,7 @@ class UserDetails extends Model {
 
         return  UserDetails::where('user_id', Auth::user()->id)
             ->orderBy('id', 'DESC')
-            ->firstOrFail();
+            ->first();
     }
 
     public function User()
