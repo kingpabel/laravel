@@ -86,9 +86,8 @@
                     </td>
                     <td>
                         <?php if ($arr && $arr['logout_time'] != '0000-00-00 00:00:00'){
-                            $to_time = new \DateTime($arr['logout_time']);
-                            $from_time = new \DateTime($arr['login_time']);
-                            echo $to_time->diff($from_time)->format('%H:%I:%S');}
+                            echo $arr['timediff'];
+                        }
                         ?>
                     </td>
                     <td>
