@@ -14,7 +14,8 @@
 Route::group(['middleware' => 'guest'], function(){
 Route::get('/', function()
 {
-	return View::make('loginPage');
+    $data['menu'] = 'Home';
+	return View::make('loginPage',$data);
 });
 });
 
