@@ -21,7 +21,7 @@
 
         public function __construct()
         {
-            date_default_timezone_set('Asia/Dhaka');
+            date_default_timezone_set(Auth::user()->Company->time_zone);
         }
 
         public function  getIndex()
