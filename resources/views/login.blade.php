@@ -41,8 +41,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li <?php //if($menu=='home'){ ?> class="active" <?php //}?>><a href="<?php // echo base_url()?>company_login/registration">Home</a></li>
-                    <li <?php //if($menu=='registration'){ ?>  <?php //}?>><a href="<?php // echo base_url()?>company_login/registration">Registration</a></li>
+                    <li <?php //if($menu=='home'){ ?> class="active" <?php //}?>><a href="{!! URL::to('/') !!}">Home</a></li>
+                    <li <?php //if($menu=='registration'){ ?>  <?php //}?>><a href="{!! URL::to('login/create-company') !!}">Registration</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -50,10 +50,7 @@
     <body>
     <div class="rc">
         <div class="container main">
-
-            <?php // echo $this->Session->flash(); ?>
                 @yield('content')
-            <?php //echo $this->fetch('content'); ?>
         </div>
     </div>
     <section id="bottom" style="margin-top: 50px">
