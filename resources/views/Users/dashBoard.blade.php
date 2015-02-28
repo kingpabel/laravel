@@ -55,43 +55,29 @@
         </div>
         <div class="box-content">
             <div class="box-content">
-                <script type="text/javascript" src="<?php // echo base_url();  ?>js/datepickr.js"></script>
-                <link rel="stylesheet" href="<?php // echo base_url(); ?>design.css" />
+
 
                 <div class="form-group span12">
                     <label for="datepick2" class="span2 control-label">Date</label>
                     <div class="span6">
-                        <input type="text" readonly class="datepicker" name="first_date" value="<?php echo date('Y-m-d', time()); ?>">
+                        <input type="text" readonly id="datepicker" class="datepicker" name="first_date" value="<?php echo date('Y-m-d', time()); ?>">
                     </div>
                 </div>
                 <div class="form-group span12">
                     <label for="datepick4" class="span2 control-label">To</label>
                     <div class="span6">
-                        <input type="text" readonly class="datepicker2" name="second_date" value="<?php echo date('Y-m-d', time()); ?>">
+                        <input type="text" readonly id="datepicker2" class="datepicker2" name="second_date" value="<?php echo date('Y-m-d', time()); ?>">
                     </div>
                 </div>
                 <div class="form-group span12">
                     <label for="datepick4" class="span2 control-label"></label>
                     <div class="span6">
-                        <button onclick="window.open('<?php // echo base_url()  ?>user/show_report?s_date=' + datepick2.value + '&e_date=' + datepick4.value)" type="button" class="btn btn-primary">
+                        <button onclick="window.open('{!! URL::to("user/report") !!}?s_date=' + datepicker.value + '&e_date=' + datepicker2.value)" type="button" class="btn btn-primary">
                             My Report</button>
                     </div>
                 </div>
 
             </div>
-            <script type="text/javascript">
-                new datepickr('datepick2', {
-                    'dateFormat': 'Y-m-d'
-                });
-                new datepickr('datepick4', {
-                    'dateFormat': 'Y-m-d'
-                });
-
-                new datepickr('datepick3', {
-                    'fullCurrentMonth': false,
-                    'dateFormat': 'l, F j'
-                });
-            </script>
         </div>
     </div>
 </div><!--/span-->
