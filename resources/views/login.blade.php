@@ -5,10 +5,10 @@
         </title>
              {!! HTML::script('js/jquery-1.9.0.min.js') !!}
              {!! HTML::script('js/bootstrap3/js/bootstrap.js') !!}
-             {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
+             {!! HTML::script('js/bootstrap3/js/jquery.pnotify.js') !!}
              {!! HTML::script('js/bootstrap3/js/jquery.nicescroll.min.js') !!}
-            {!! HTML::style('css/pnotify/jquery.pnotify.default.css') !!}
-            {!! HTML::style('css/pnotify/jquery.pnotify.default.icons.css') !!}
+            {!! HTML::style('js/bootstrap3/css/jquery.pnotify.default.css') !!}
+            {!! HTML::style('js/bootstrap3/css/jquery.pnotify.default.icons.css') !!}
             {!! HTML::style('css/bootstrap3/css/bootstrap.min.css') !!}
             {!! HTML::style('css/bootstrap3/css/font-awesome.min.css') !!}
             {!! HTML::style('css/bootstrap3/css/main.css') !!}

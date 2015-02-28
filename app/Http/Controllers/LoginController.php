@@ -38,6 +38,7 @@ class LoginController extends Controller {
         }
         else
         {
+            Session::flash('flashError', 'Your ID or Password Invalid');
             return redirect('/');
         }
     }

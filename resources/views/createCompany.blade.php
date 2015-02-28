@@ -156,7 +156,7 @@ $timezones = array(
                 <div class="form-group">
                     <label for="phone" class="col-sm-4 control-label">Time Zone</label>
                     <div class="col-sm-6">
-                        <select name="time_zone" required class="form-control">
+                        <select name="time_zone" required class="form-control" data-rel="chosen">
                             <option value="">Please select a timezone</option>
                             <?php foreach($timezones as $key => $timezone){ ?>
                                 <option value="<?php echo $key?>"><?php echo $timezone?></option>
@@ -197,6 +197,7 @@ $timezones = array(
 <?php $message_error=Session::get('flashError'); if ($message_error) { ?>
 <script type="text/javascript">
     $(document).ready(function() {
+        $.pnotify.defaults.styling = "bootstrap3";
         $.pnotify({
             title: 'Error',
             text: '<?php echo $message_error ?>',
@@ -211,6 +212,7 @@ $timezones = array(
 <?php $message_success=Session::get('flashSuccess');; if ($message_success) { ?>
 <script type="text/javascript">
     $(document).ready(function() {
+        $.pnotify.defaults.styling = "bootstrap3";
         $.pnotify({
             title: 'Message',
             text: '<?php echo $message_success ?>',
