@@ -41,8 +41,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li <?php //if($menu=='home'){ ?> class="active" <?php //}?>><a href="{!! URL::to('/') !!}">Home</a></li>
-                    <li <?php //if($menu=='registration'){ ?>  <?php //}?>><a href="{!! URL::to('login/create-company') !!}">Registration</a></li>
+                    <li <?php if($menu=='Home'){ ?> class="active" <?php }?>><a href="{!! URL::to('/') !!}">Home</a></li>
+                    <li <?php if($menu=='Create'){ ?> class="active" <?php }?>><a href="{!! URL::to('login/create-company') !!}">Registration</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
