@@ -8,7 +8,7 @@
             foreach($activeUser as $userActive):
             $aU=$aU-1;
             ?>
-            <a target="blank" style="text-decoration:none;cursor:pointer"  href="<?php //echo base_url() ?>company/show_report?s_date=<?php //echo date('Y-m-d', time()) ?>&e_date=<?php //echo date('Y-m-d', time()) ?>&user_id=<?php //echo $user_active->user_id ?>">
+            <a target="blank" style="text-decoration:none;cursor:pointer"  href="{!! URL::to('company/report') !!}?s_date=<?php echo date('Y-m-d', time()) ?>&e_date=<?php echo date('Y-m-d') ?>&id=<?php echo $userActive->user_id ?>">
                 {{ @$userActive->User->username }}
                 @if ($aU != 0) ,
                 @endif
@@ -34,7 +34,7 @@
             foreach($lateUser as $userLate):
            $lU=$lU-1;
             ?>
-            <a target="blank" style="text-decoration:none;cursor:pointer"  href="<?php //echo base_url() ?>company/show_report?s_date=<?php //echo $date ?>&e_date=<?php //echo $date ?>&user_id=<?php //echo $user_late->user_id ?>">
+            <a target="blank" style="text-decoration:none;cursor:pointer"  href="{!! URL::to('company/report') !!}?s_date=<?php echo date('Y-m-d') ?>&e_date=<?php echo date('Y-m-d') ?>&id=<?php echo $userLate->user_id ?>">
                 <?php echo $userLate->User->username;
                 if($lU != 0) echo ',';?>
             </a>
@@ -65,7 +65,7 @@
     ?>
     <div class="alert alert-info">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong><a style="text-decoration:none; cursor:pointer" href="<?php //echo base_url()?>company/all_leave">You Have <?php echo $withLeaveNotification?> day's Leave Request</a></strong>
+        <strong><a style="text-decoration:none; cursor:pointer" href="{!! URL::to('company/all-leave') !!}">You Have <?php echo $withLeaveNotification?> day's Leave Request</a></strong>
     </div>
     <?php }?>
     <div>
