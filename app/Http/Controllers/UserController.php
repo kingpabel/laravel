@@ -6,6 +6,7 @@ use Auth;
 use Request;
 use Session;
 use DB;
+use App\HolidayInfo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -230,5 +231,42 @@ class UserController extends Controller {
         Leave::where('user_id', Auth::user()->id)->update(array('user_noti_status' => 0));
         $data['myLeave'] = Leave::where('user_id', Auth::user()->id)->get();
         return view('Users.myLeave', $data);
+    }
+    public function getReport()
+    {
+        $data['startDate'] = Request::input('s_date');
+        $data['endDate'] = Request::input('e_date');
+        $data['id'] = Auth::user()->id;
+        $data['userInfo'] = \App\User::find($data['id']);
+        $data['attendanceReport'] = UserDetails::
+        select(DB::raw('timediff(logout_time,login_time) as timediff'),
+            'login_date','logout_date','id','login_time','logout_time','user_id','status')
+            ->where('user_id', $data['id'])
+            ->where('login_date', '>=',  $data['startDate'])
+            ->where('logout_date', '<=', $data['endDate'])
+            ->orderBy('id', 'ASC')
+            ->get()
+            ->toArray();
+        $data['allDate']= $this->getDatesFromRange( $data['startDate'], $data['endDate']);
+        $data['allHoliday'] = HolidayInfo::where('holiday', '>=',  $data['startDate'])
+            ->where('holiday', '<=', $data['endDate'])
+            ->get()
+            ->toArray();
+        $data['allLeave'] = Leave::where('leave_date', '>=',  $data['startDate'])
+            ->where('leave_date', '<=', $data['endDate'])
+            ->where('user_id', $data['id'])
+            ->where('leave_status', 1)
+            ->get()
+            ->toArray();
+        return view('Company.report',$data);
+
+    }
+
+    public function getDatesFromRange($start, $end) {
+        $dates = array($start);
+        while (end($dates) < $end) {
+            $dates[] = date('Y-m-d', strtotime(end($dates) . ' +1 day'));
+        }
+        return $dates;
     }
 }
