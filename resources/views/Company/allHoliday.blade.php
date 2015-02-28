@@ -86,5 +86,32 @@
     }
     ?>
     <?php endforeach; ?>
+    <?php $message_error=Session::get('flashError'); if ($message_error) { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.pnotify({
+                title: 'Error',
+                text: '<?php echo $message_error ?>',
+                type: 'error',
+                delay: 3000
 
+            });
+        });
+    </script>
+
+    <?php } ?>
+    <?php $message_success=Session::get('flashSuccess');; if ($message_success) { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.pnotify({
+                title: 'Message',
+                text: '<?php echo $message_success ?>',
+                type: 'success',
+                delay: 3000
+
+            });
+        });
+    </script>
+
+    <?php } ?>
 @endsection

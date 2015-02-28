@@ -157,7 +157,7 @@
                         if(data.type == 'success' ){
                             $.pnotify({
                                 title: 'Message',
-                                text: 'Category Created Successfully',
+                                text: 'Leave Category Created Successfully',
                                 type: 'success',
                                 delay: 3000
                             });

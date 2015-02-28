@@ -62,12 +62,13 @@
                     cache: false,
                     success: function(data) {
                         if(data == 'true') {
-                            $.pnotify({
+                            window.location.href ="{!! URL::to('company/all-holiday') !!}";
+                            /*$.pnotify({
                                 title: 'Message',
                                 text: 'Holiday Created Successfully',
                                 type: 'success',
                                 delay: 3000
-                            });
+                            });*/
                         }else{
                             $.pnotify({
                                 title: 'Message',

@@ -11,6 +11,7 @@
     use DB;
     use Illuminate\Support\Facades\Validator;
     use Illuminate\Support\Facades\Input;
+    use Illuminate\Support\Facades\Redirect;
     use App\Http\Controllers\Controller;
     use Symfony\Component\Security\Core\User\User;
     use Illuminate\Support\Facades\Hash;
@@ -256,7 +257,8 @@
                 foreach($holidayList as $holiday){
                     if($holiday == '')
                         return 'Please Fill All the Field';
-                    $checkExisting = HolidayInfo::where('holiday', $holiday)->first();
+                    $checkExisting = HolidayInfo::where('holiday', $holiday)
+                        ->first();
                     if($checkExisting)
                         return "$holiday has Already Added as a Holiday";
                 }
@@ -266,6 +268,7 @@
                     $saveHoliday->holiday = $holiday;
                     $saveHoliday->save();
                 }
+                Session::flash('flashSuccess', 'Holiday Created Successfully');
                 return 'true';
 
             }else {
@@ -324,9 +327,18 @@
         {
 
             if (Request::all()) {
+                $checkExist = LeaveCategories::where('category', Request::input('category'))
+                    ->where('company_id', Auth::user()->company_id)
+                    ->first();
+                if($checkExist){
+                    $response['type'] = 'error';
+                    $response['info'] = 'This Category Already Taken';
+                    return Response::json($response);
+                }
+
                 $rules = array(
-                    'category'=> "unique:leave_categories,category|alpha_dash",
-                    'category_num'  => 'max:2',
+                    'category'=> "required|alpha_dash",
+                    'category_num'  => 'required|max:2',
                 );
                 /* Laravel Validator Rules Apply */
                 $validator = Validator::make(Input::all(), $rules);

@@ -49,15 +49,15 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="company_user_name">First Name</label>
+                            <label class="control-label" for="company_user_name">User First Name</label>
                             <div class="controls">
-                                <input type="text" required class="input-xlarge input" id="user_first_name" name="user_first_name" placeholder="Last name" value="<?php echo $myInfo->user_first_name?>">
+                                <input type="text" required class="input-xlarge input" id="user_first_name" name="user_first_name" placeholder="User Last name" value="<?php echo $myInfo->user_first_name?>">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="company_user_name">Last Name</label>
+                            <label class="control-label" for="company_user_name">User Last Name</label>
                             <div class="controls">
-                                <input type="text" required class="input-xlarge input" id="company_user_name" name="user_last_name" placeholder="First name" value="<?php echo $myInfo->user_last_name?>">
+                                <input type="text" required class="input-xlarge input" id="company_user_name" name="user_last_name" placeholder="User First name" value="<?php echo $myInfo->user_last_name?>">
                             </div>
                         </div>
                         <div class="form-actions">
