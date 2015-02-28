@@ -91,7 +91,8 @@ class LoginController extends Controller {
                     return redirect()->intended('company');
             }
         }else {
-            return view('createCompany');
+            $data['menu'] = 'Create';
+            return view('createCompany',$data);
         }
     }
 }
