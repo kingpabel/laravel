@@ -222,4 +222,7 @@
     <?php } ?>
 
 @endsection
+@section('jsBottom')
+    {!! HTML::script('js/charisma/js/jquery.dataTables.min.js') !!}
+@endsection
 
