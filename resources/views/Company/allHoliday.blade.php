@@ -11,6 +11,13 @@
             </li>
         </ul>
     </div>
+    <div class="row-fluid sortable">
+        <div class="span12">
+            <div class="span2">
+                <a href="{!! URL::to('company/create-holiday') !!}" class="btn btn-large btn-success" style="width: 100%"><i class="icon-plus icon-white" ></i> Create Holiday</a>
+            </div>
+        </div>
+    </div>
     <?php $row = 0; ?>
 
     <?php foreach ($allHoliday as $holidays): ?>
