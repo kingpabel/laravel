@@ -304,6 +304,17 @@
         public function getChangeLeaveStatus($id)
         {
             if(Request::input('status') == 'grant'){
+                $categoryID = Request::input('categoryID');
+                $first_day_this_year = date('Y-01-01');
+                $last_day_this_year  =date('Y-12-t');
+                $leaveNumber = Leave::where('leave_category_id', $categoryID)
+                    ->where('leave_date','>=', $first_day_this_year)
+                    ->where('leave_date','<=', $last_day_this_year)
+                    ->where('user_id', Request::input('userID'))
+                    ->where('leave_status', 1)
+                    ->count();
+                if($leaveNumber == Request::input('categoryBudget') || $leaveNumber > Request::input('categoryBudget'))
+                return 'false';
                 $statusChange = Leave::find($id);
                 $statusChange->leave_status = 1;
                 $statusChange->user_noti_status = 1;

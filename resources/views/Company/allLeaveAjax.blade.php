@@ -81,18 +81,30 @@ foreach ($allLeave as $leave):
         $("#grant_<?php echo $leave->id ?>").click(function(event) {
             event.preventDefault();
             var values = 'grant';
+            var categoryID = "<?php echo $leave->leave_category_id ?>";
+            var userID = "<?php echo $leave->user_id ?>";
+            var categoryBudget = "<?php echo $leave->LeaveCategories->category_num ?>";
             $.ajax({
                 url: '{!! URL::to("company/change-leave-status/$leave->id") !!}',
                 type: "GET",
-                data: {status: values},
+                data: {status: values, categoryID:categoryID, userID:userID, categoryBudget:categoryBudget},
                 success: function(data) {
-                    $.pnotify({
-                        title: 'Message',
-                        text: 'Status Changed.',
-                        type: 'success',
-                        delay: 3000
-                    });
-                    $("#ajaxUpdate").html(data);
+                    if(data == 'false'){
+                        $.pnotify({
+                            title: 'Error',
+                            text: 'This User Already Take Maximum Leave On This Category',
+                            type: 'error',
+                            delay: 3000
+                        });
+                    }else {
+                        $.pnotify({
+                            title: 'Message',
+                            text: 'Status Changed.',
+                            type: 'success',
+                            delay: 3000
+                        });
+                        $("#ajaxUpdate").html(data);
+                    }
                 }
             });
 
