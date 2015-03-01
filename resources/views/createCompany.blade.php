@@ -1,7 +1,16 @@
 @extends('login')
 
 @section('content')
-<?php
+    {!! HTML::style('css/chosen.css') !!}
+    {!! HTML::script('js/chosen.jquery.min.js') !!}
+    <script>
+        $(function() {
+            $('.chosen-select').chosen();
+            $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+        });
+    </script>
+
+    <?php
 $timezones = array(
         'Pacific/Midway'       => "(GMT-11:00) Midway Island",
         'US/Samoa'             => "(GMT-11:00) Samoa",
@@ -156,7 +165,7 @@ $timezones = array(
                 <div class="form-group">
                     <label for="phone" class="col-sm-4 control-label">Time Zone</label>
                     <div class="col-sm-6">
-                        <select name="time_zone" required class="form-control" data-rel="chosen">
+                        <select name="time_zone" required class="form-control chosen-select" data-placeholder="Choose a Country" tabindex="2">
                             <option value="">Please select a timezone</option>
                             <?php foreach($timezones as $key => $timezone){ ?>
                                 <option value="<?php echo $key?>"><?php echo $timezone?></option>
