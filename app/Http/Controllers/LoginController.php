@@ -27,12 +27,21 @@ class LoginController extends Controller {
         $credentials = array(
             'username' => Request::input('username'),
             'password' => Request::input('password'),
+            'status' => 1
         );
 //         Config::set('auth.model', 'CompanyUser');
         if(Auth::attempt( $credentials ))
         {
-            if(Auth::user()->user_label == 2)
-            return redirect()->intended('user');
+            if(Auth::user()->user_label == 2) {
+                if(Auth::user()->ip_address){
+                    if(Auth::user()->ip_address != $_SERVER['REMOTE_ADDR']){
+                        Auth::logout();
+                        Session::flash('flashError', 'Your Ip is not Valid');
+                        return redirect('/');
+                    }
+                }
+                return redirect()->intended('user');
+            }
             if(Auth::user()->user_label == 1)
                 return redirect()->intended('company');
         }
