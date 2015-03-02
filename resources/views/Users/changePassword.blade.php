@@ -23,7 +23,6 @@
         </div>
         <div class="box-content">
             {!! Form::open(array('role' => 'form', 'id' => 'change_password', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'user/change-password')) !!}
-            <!--<form class="form-horizontal" id="user_update" method="post" action="<?php// echo $this->Html->url(array('controller'=>'users','action'=>'changePass'))?>">-->
             <fieldset>
                 <div class="control-group">
                     <label class="control-label" for="old_pass">Old Password</label>
