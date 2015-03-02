@@ -47,10 +47,11 @@
                             <input type="text" required class="input-xlarge input" name="user_email" value="<?php echo Auth::user()->user_email?>" id="user_email" placeholder="User Email">
                         </div>
                     </div>
-                    <div id="loader">
-                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                    <div id="loader">
                     </div>
                 </fieldset>
                     </form>

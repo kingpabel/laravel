@@ -48,6 +48,8 @@
                                 <input type="button" value="Update" class="btn btn-default btn btn-primary" id="time_update">
                             </div>
                         </div>
+                        <div id="loader">
+                        </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf">
                     </fieldset>
                 </form>
@@ -65,7 +67,11 @@
                     type: "POST",
                     data: {password: values, _token: csrf},
                     cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
                     success: function(data) {
+                        $('#loader').hide();
                         if(data == 'true') {
                             $.pnotify({
                                 title: 'Message',
@@ -96,7 +102,11 @@
                     type: "POST",
                     data: {username: values, _token: csrf},
                     cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
                     success: function(data) {
+                        $('#loader').hide();
                         if(data == 'true') {
                             $.pnotify({
                                 title: 'Message',
@@ -127,7 +137,11 @@
                     type: "POST",
                     data: {time: values, _token: csrf},
                     cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
                     success: function(data) {
+                        $('#loader').hide();
                         if(data == 'true') {
                             $.pnotify({
                                 title: 'Message',

@@ -67,11 +67,11 @@
                                 <textarea required name="leave_cause" id="description" placeholder="Describe Your Leave Cause"  class="form-control" rows="7" cols="10"></textarea>
                             </div>
                         </div>
-                        <div id="loader">
-                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Save</button>
                             <button type="reset" class="btn">Cancel</button>
+                        </div>
+                        <div id="loader">
                         </div>
                     </fieldset>
                 </form>

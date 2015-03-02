@@ -38,11 +38,11 @@
                                 <button type="button" id="add" class="btn btn-default">Add More</button>
                             </div>
                         </div>
-                        <div id="loader">
-                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Create</button>
                             <button type="reset" class="btn">Cancel</button>
+                        </div>
+                        <div id="loader">
                         </div>
                     </fieldset>
                 </form>

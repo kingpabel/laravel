@@ -60,11 +60,11 @@
                                 <input type="text" required class="input-xlarge input" id="company_user_name" name="user_last_name" placeholder="User First name" value="<?php echo $myInfo->user_last_name?>">
                             </div>
                         </div>
-                        <div id="loader">
-                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Update</button>
                             <button type="reset" class="btn">Cancel</button>
+                        </div>
+                        <div id="loader">
                         </div>
                     </fieldset>
                 </form>

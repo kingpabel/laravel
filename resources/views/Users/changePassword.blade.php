@@ -42,12 +42,12 @@
                         <input type="password" required  class="input-xlarge " id="retype_user_password" name="confirm_new_password" placeholder="Re-type New Password">
                     </div>
                 </div>
-                <div id="loader">
-                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Change Password</button>
-
                     <button type="reset" class="btn">Cancel</button>
+                </div>
+                <div id="loader">
                 </div>
             </fieldset>
             </form>
