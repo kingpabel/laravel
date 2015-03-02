@@ -38,6 +38,8 @@
                                 <button type="button" id="add" class="btn btn-default">Add More</button>
                             </div>
                         </div>
+                        <div id="loader">
+                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Create</button>
                             <button type="reset" class="btn">Cancel</button>
@@ -60,15 +62,13 @@
                     type: "POST",
                     data: values,
                     cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
                     success: function(data) {
+                        $('#loader').hide();
                         if(data == 'true') {
                             window.location.href ="{!! URL::to('company/all-holiday') !!}";
-                            /*$.pnotify({
-                                title: 'Message',
-                                text: 'Holiday Created Successfully',
-                                type: 'success',
-                                delay: 3000
-                            });*/
                         }else{
                             $.pnotify({
                                 title: 'Message',

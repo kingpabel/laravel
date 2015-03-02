@@ -60,6 +60,8 @@
                                 <input type="text" required class="input-xlarge input" id="company_user_name" name="user_last_name" placeholder="User First name" value="<?php echo $myInfo->user_last_name?>">
                             </div>
                         </div>
+                        <div id="loader">
+                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Update</button>
                             <button type="reset" class="btn">Cancel</button>
@@ -79,7 +81,11 @@
                     type: "POST",
                     data: values,
                     cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
                     success: function(data) {
+                        $('#loader').hide();
                         if(data=='true') {
                             $.pnotify({
                                 title: 'Success',

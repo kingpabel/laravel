@@ -40,7 +40,8 @@
                             <input type="password" required  class="input-xlarge " id="retype_user_password" name="confirm_new_password" placeholder="Re-type sNew Password">
                         </div>
                     </div>
-
+                    <div id="loader">
+                    </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success">Change</button>
                         <button type="reset" class="btn">Cancel</button>
@@ -72,7 +73,11 @@
                 type: "POST",
                 data: values,
                 cache: false,
+                beforeSend: function(){
+                    $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                },
                 success: function(data) {
+                    $('#loader').hide();
                     if(data == 'true') {
                         $.pnotify({
                             title: 'Message',
