@@ -422,6 +422,9 @@
             $data['attendanceReport'] = UserDetails::
                 select(DB::raw('timediff(logout_time,login_time) as timediff'),
                     'login_date','logout_date','id','login_time','logout_time','user_id')
+                ->whereHas('User', function($q) {
+                    $q->where('company_id', Auth::user()->company_id);
+                })
                 ->where('login_date', '>=',  $data['startDate'])
                 ->where('logout_date', '<=', $data['endDate'])
                 ->where('logout_time', '!=', '0000-00-00 00:00:00')
