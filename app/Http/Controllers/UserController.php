@@ -258,7 +258,7 @@ class UserController extends Controller {
             ->where('leave_status', 1)
             ->get()
             ->toArray();
-        return view('Company.report',$data);
+        return view('Users.report',$data);
 
     }
 
