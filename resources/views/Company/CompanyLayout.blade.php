@@ -75,7 +75,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">ROX CODER</a>
+            <a class="brand" href="http://www.kingpabel.com">Kingpabel ATN</a>
             <!-- user dropdown starts -->
             <div class="btn-group pull-right" >
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
