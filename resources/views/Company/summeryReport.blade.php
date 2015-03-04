@@ -32,8 +32,12 @@ foreach($attendanceReport as $report){
     <div>
         <ul class="breadcrumb">
             <li>
-                <a href="{!! URL::to('company') !!}">Home</a></span>
+                <a href="{!! URL::to('company') !!}">Home</a> <span class="divider">/</span>
             </li>
+            <li>
+                <a href=''{!! URL::to("company/report-summery") !!}'>Summery Report</a>
+            </li>
+
         </ul>
     </div>
     <div class="row-fluid sortable">
