@@ -4,7 +4,7 @@
     <title>Kingpabel ATN
     </title>
     {!! HTML::script('js/charisma/js/jquery-1.7.2.min.js') !!}
-    {!! HTML::script('js/bootstrap/js/bootstrap-alert.js') !!}
+    {!! HTML::script('css/bootstrap/js/bootstrap-alert.js') !!}
     {{--{!! HTML::script('js/charisma/js/jquery.dataTables.min.js') !!}--}}
     {!! HTML::style('css/bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap-responsive.css') !!}
