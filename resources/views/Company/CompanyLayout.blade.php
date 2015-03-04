@@ -126,6 +126,7 @@
                     <li><a class="ajax-link" href="{!! URL::to('company/leave-category') !!}"><i class="icon-th"></i><span class="hidden-tablet"> Leave Catagory</span></a></li>
                     <li class="nav-header hidden-tablet"> Report</li>
                     <li><a class="ajax-link" href="{!! URL::to('company/full-calender') !!}"><i class="icon-list"></i><span class="hidden-tablet"> Full Calender Report</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('company/table-report') !!}"><i class="icon-list"></i><span class="hidden-tablet"> Table Report Individual</span></a></li>
                 </ul>
                 <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"></label>
             </div><!--/.well -->
