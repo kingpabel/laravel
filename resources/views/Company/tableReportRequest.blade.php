@@ -6,7 +6,7 @@
                 <a href="{!! URL::to('company') !!}">Home</a> <span class="divider">/</span>
             </li>
             <li>
-                <a href=''{!! URL::to("company/update-me") !!}'>Update Info</a>
+                <a href=''{!! URL::to("company/table-report") !!}'>Table Report</a>
             </li>
 
         </ul>
