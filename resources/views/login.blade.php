@@ -93,7 +93,7 @@
             <div class="footer">
                 <div class="row">
                     <div class="col-md-12">
-                        <span>&copy; 2015 Kingpabel. All Rights Reserved.</span>
+                        <span>&copy; 2015 <a href="http://www.kingpabel.com">Kingpabel</a>. All Rights Reserved.</span>
                     </div>
                 </div>
             </div>
