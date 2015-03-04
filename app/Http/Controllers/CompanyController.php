@@ -470,11 +470,58 @@
                     return redirect('company/full-calender');
                 }
 
+
                 return view('Company.fullCalender', $data);
             }else{
                 $user = new \App\User();
                 $data['allUser'] = $user->allUser();
                 return view('Company.fullCalenderRequest',$data);
+            }
+        }
+
+        public function anyTableReport()
+        {
+            if(Request::all()) {
+                $data['startDate'] = Request::input('from');
+                $data['endDate'] = Request::input('to');
+                $data['id'] = Request::input('id');
+                $data['userInfo'] = \App\User::where('company_id', Auth::user()->company_id)
+                    ->where('id', $data['id'])->first();
+                if (!$data['userInfo']) {
+                    Session::flash('flashError', 'This User Is Not Your Company');
+                    return redirect('company/table-report');
+                }
+                $data['allDate']= $this->getDatesFromRange( $data['startDate'], $data['endDate']);
+                $data['allHoliday'] = HolidayInfo::where('holiday', '>=',  $data['startDate'])
+                    ->where('holiday', '<=', $data['endDate'])
+                    ->get()
+                    ->toArray();
+                $data['allLeave'] = Leave::where('leave_date', '>=',  $data['startDate'])
+                    ->where('leave_date', '<=', $data['endDate'])
+                    ->where('user_id', $data['id'])
+                    ->where('leave_status', 1)
+                    ->get()
+                    ->toArray();
+                $data['attendanceReport'] = UserDetails::
+                select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                    'login_date', 'logout_date', 'id', 'login_time', 'logout_time', 'user_id', 'status')
+                    ->where('user_id', $data['id'])
+                    ->where('login_date', '>=', $data['startDate'])
+                    ->where('logout_date', '<=', $data['endDate'])
+                    ->orderBy('id', 'ASC')
+                    ->get()
+                    ->toArray();
+
+                if (!$data['attendanceReport']) {
+                    Session::flash('flashError', $data['userInfo']->username.' Has not Any Work From '.$data['startDate'].' to '. $data['endDate']);
+                    return redirect('company/table-report');
+                }
+
+                return view('Company.report', $data);
+            }else {
+                $user = new \App\User();
+                $data['allUser'] = $user->allUser();
+                return view('Company.tableReportRequest', $data);
             }
         }
 
