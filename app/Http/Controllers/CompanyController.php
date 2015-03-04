@@ -429,9 +429,36 @@
                 ->where('logout_date', '<=', $data['endDate'])
                 ->where('logout_time', '!=', '0000-00-00 00:00:00')
                 ->orderBy('id', 'ASC')
-//                ->groupBy('user_id')
                 ->get();
             return view('Company.summeryReport',$data);
+        }
+
+        public function anyReportSummery()
+        {
+            if(Request::all()){
+                $data['startDate'] = Request::input('from');
+                $data['endDate'] = Request::input('to');
+                $data['attendanceReport'] = UserDetails::
+                select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                    'login_date','logout_date','id','login_time','logout_time','user_id')
+                    ->whereHas('User', function($q) {
+                        $q->where('company_id', Auth::user()->company_id);
+                    })
+                    ->where('login_date', '>=',  $data['startDate'])
+                    ->where('logout_date', '<=', $data['endDate'])
+                    ->where('logout_time', '!=', '0000-00-00 00:00:00')
+                    ->orderBy('id', 'ASC')
+                    ->get();
+                if ($data['attendanceReport']->isEmpty()) {
+                    Session::flash('flashError', 'There is no report.Because None of Employee Has Not Work From '. $data['startDate'].' to '. $data['endDate']);
+                    return redirect('company/report-summery');
+                }
+                
+                return view('Company.summeryReport',$data);
+            }
+            else{
+                return view('Company.summeryReportRequest');
+            }
         }
 
         public function getDatesFromRange($start, $end) {
