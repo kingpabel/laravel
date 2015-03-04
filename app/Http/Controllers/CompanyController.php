@@ -453,7 +453,7 @@
                     Session::flash('flashError', 'There is no report.Because None of Employee Has Not Work From '. $data['startDate'].' to '. $data['endDate']);
                     return redirect('company/report-summery');
                 }
-                
+
                 return view('Company.summeryReport',$data);
             }
             else{

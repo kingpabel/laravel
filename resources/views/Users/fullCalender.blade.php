@@ -1,4 +1,4 @@
-@extends('Company.CompanyLayout')
+@extends('Users.UserLayout')
 @section('content')
     <?php
     $currentReport = current($attendanceReport);

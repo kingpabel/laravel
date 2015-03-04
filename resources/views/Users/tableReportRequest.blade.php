@@ -6,7 +6,7 @@
                 <a href="{!! URL::to('user') !!}">Home</a> <span class="divider">/</span>
             </li>
             <li>
-                <a href=''{!! URL::to("user/full-calender") !!}'>Full Calender Report</a>
+                <a href=''{!! URL::to("user/table-report") !!}'>Table Report</a>
             </li>
 
         </ul>
@@ -14,14 +14,14 @@
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header well" data-original-title>
-                <h2><i class="icon-edit"></i> Full Calender Report</h2>
+                <h2><i class="icon-edit"></i> Table Report</h2>
                 <div class="box-icon">
                     <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
                     <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
                 </div>
             </div>
             <div class="box-content">
-                {!! Form::open(array('role' => 'form', 'id' => 'full-calender', 'accept-charset' => 'utf-8', 'method' => 'post', 'class' => 'form-horizontal', 'url' => 'user/full-calender')) !!}
+                {!! Form::open(array('role' => 'form', 'id' => 'full-calender', 'accept-charset' => 'utf-8', 'method' => 'post', 'class' => 'form-horizontal', 'url' => 'user/table-report')) !!}
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="company_name">From</label>
@@ -35,6 +35,7 @@
                             <input type="text" id="to" required readonly class="input-xlarge" name="to" id="company_name" placeholder="To Date" >
                         </div>
                     </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success">Report</button>
                         <button type="reset" class="btn">Cancel</button>
@@ -82,4 +83,4 @@
     </script>
 
     <?php } ?>
-    @endsection
+@endsection

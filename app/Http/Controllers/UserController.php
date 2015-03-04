@@ -262,6 +262,85 @@ class UserController extends Controller {
 
     }
 
+    public function anyFullCalender()
+    {
+        if(Request::all()) {
+            $data['startDate'] = Request::input('from');
+            $data['endDate'] = Request::input('to');
+            $data['id'] = Auth::user()->id;
+            $data['userInfo'] = \App\User::find($data['id']);
+            if (!$data['userInfo']) {
+                Session::flash('flashError', 'This User Is Not Found');
+                return redirect('user/full-calender');
+            }
+
+            $data['attendanceReport'] = UserDetails::
+            select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                'login_date', 'logout_date', 'id', 'login_time', 'logout_time', 'user_id', 'status')
+                ->where('user_id', $data['id'])
+                ->where('login_date', '>=', $data['startDate'])
+                ->where('logout_date', '<=', $data['endDate'])
+                ->orderBy('id', 'ASC')
+                ->get()
+                ->toArray();
+
+            if (!$data['attendanceReport']) {
+                Session::flash('flashError', 'You are not Any Work From '.$data['startDate'].' to '. $data['endDate']);
+                return redirect('user/full-calender');
+            }
+            return view('Users.fullCalender', $data);
+        }else{
+            $user = new \App\User();
+            $data['allUser'] = $user->allUser();
+            return view('Users.fullCalenderRequest',$data);
+        }
+    }
+
+    public function anyTableReport()
+    {
+        if(Request::all()) {
+            $data['startDate'] = Request::input('from');
+            $data['endDate'] = Request::input('to');
+            $data['id'] = Auth::user()->id;
+            $data['userInfo'] = \App\User::find($data['id']);
+            if (!$data['userInfo']) {
+                Session::flash('flashError', 'This User Is Not Found');
+                return redirect('user/table-report');
+            }
+            $data['allDate']= $this->getDatesFromRange( $data['startDate'], $data['endDate']);
+            $data['allHoliday'] = HolidayInfo::where('holiday', '>=',  $data['startDate'])
+                ->where('holiday', '<=', $data['endDate'])
+                ->get()
+                ->toArray();
+            $data['allLeave'] = Leave::where('leave_date', '>=',  $data['startDate'])
+                ->where('leave_date', '<=', $data['endDate'])
+                ->where('user_id', $data['id'])
+                ->where('leave_status', 1)
+                ->get()
+                ->toArray();
+            $data['attendanceReport'] = UserDetails::
+            select(DB::raw('timediff(logout_time,login_time) as timediff'),
+                'login_date', 'logout_date', 'id', 'login_time', 'logout_time', 'user_id', 'status')
+                ->where('user_id', $data['id'])
+                ->where('login_date', '>=', $data['startDate'])
+                ->where('logout_date', '<=', $data['endDate'])
+                ->orderBy('id', 'ASC')
+                ->get()
+                ->toArray();
+
+            if (!$data['attendanceReport']) {
+                Session::flash('flashError', 'You are not Any Work From '.$data['startDate'].' to '. $data['endDate']);
+                return redirect('user/table-report');
+            }
+
+            return view('Users.report', $data);
+        }else {
+            $user = new \App\User();
+            $data['allUser'] = $user->allUser();
+            return view('Users.tableReportRequest', $data);
+        }
+    }
+
     public function getDatesFromRange($start, $end) {
         $dates = array($start);
         while (end($dates) < $end) {

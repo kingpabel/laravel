@@ -115,6 +115,9 @@
                     <li class="nav-header hidden-tablet"> Leave</li>
                     <li><a class="ajax-link" href="{!! URL::to('user/apply-leave') !!}"><i class="icon-align-justify"></i><span class="hidden-tablet"> Apply</span></a></li>
                     <li><a class="ajax-link" href="{!! URL::to('user/my-leave') !!}"><i class="icon-calendar"></i><span class="hidden-tablet"> My Leave</span></a></li>
+                    <li class="nav-header hidden-tablet"> Report</li>
+                    <li><a class="ajax-link" href="{!! URL::to('user/full-calender') !!}"><i class="icon-list"></i><span class="hidden-tablet"> Full Calender Report</span></a></li>
+                    <li><a class="ajax-link" href="{!! URL::to('user/table-report') !!}"><i class="icon-list"></i><span class="hidden-tablet"> Table Report</span></a></li>
                 </ul>
                 <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"></label>
             </div><!--/.well -->
