@@ -9,9 +9,9 @@
              {!! HTML::script('js/bootstrap3/js/jquery.nicescroll.min.js') !!}
             {!! HTML::style('js/bootstrap3/css/jquery.pnotify.default.css') !!}
             {!! HTML::style('js/bootstrap3/css/jquery.pnotify.default.icons.css') !!}
-            {!! HTML::style('css/bootstrap3/css/bootstrap.min.css') !!}
-            {!! HTML::style('css/bootstrap3/css/font-awesome.min.css') !!}
-            {!! HTML::style('css/bootstrap3/css/main.css') !!}
+            {!! HTML::style('js/bootstrap3/css/bootstrap.min.css') !!}
+            {!! HTML::style('js/bootstrap3/css/font-awesome.min.css') !!}
+            {!! HTML::style('js/bootstrap3/css/main.css') !!}
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
