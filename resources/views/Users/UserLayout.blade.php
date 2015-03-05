@@ -173,7 +173,7 @@
 {!! HTML::script('js/charisma/js/jquery.autogrow-textarea.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uploadify-3.1.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.history.js') !!}
-{!! HTML::script('js/charisma/js/charisma.js') !!}
+{{--{!! HTML::script('js/charisma/js/charisma.js') !!}--}}
 
 </body>
 </html>
