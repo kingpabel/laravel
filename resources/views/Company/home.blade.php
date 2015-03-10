@@ -172,22 +172,28 @@
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
                     <?php foreach($reports as $report){
-                     $hours = $report['workingHours'];
-                        $minutes = $report['workingMinutes'];
-                        $seconds = $report['workingSeconds'];
-                        if($report['workingMinutes']/60){
-                        $hours = intval($hours + $report['workingMinutes']/60);
-                        $minutes=intval($report['workingMinutes']%60);
-                        }
-                        if($report['workingSeconds']/60){
-                        $minutes = intval($minutes + $report['workingSeconds']/60);
-                        $seconds=intval($report['workingSeconds']%60);
-                        }
-                        if(intval($hours) < 10)
-                        $hours = intval($hours);
+                    $minutesActual = $report['workingHours'] * 60 + $report['workingMinutes'];
+                    $hours = $report['workingHours'];
+                    $minutes = $report['workingMinutes'];
+                    $seconds = $report['workingSeconds'];
+                    if($report['workingMinutes']/60){
+                    $hours = intval($hours + $report['workingMinutes']/60);
+                    $minutes=intval($report['workingMinutes']%60);
+                    }
+                    if($report['workingSeconds']/60){
+                    $minutes = intval($minutes + $report['workingSeconds']/60);
+                    $seconds=intval($report['workingSeconds']%60);
+                    }
+                    if(intval($hours) < 10)
+                    $hours = '0'.intval($hours);
+                    if(intval($minutes) < 10)
+                    $minutes = '0'.intval($minutes);
+                    if(intval($seconds) < 10)
+                    $seconds = '0'.intval($seconds);
+                    $timeSHow =  $hours.':'.$minutes.':'.$seconds;
                     ?>
 
-                ["<?php echo $report['username'].'('.$hours. 'hours)'?>",     <?php echo $hours?>],
+                ["<?php echo $report['username'].'('.$timeSHow. ')'?>",     <?php echo $minutesActual?>],
                 <?php }?>
             ]);
 
