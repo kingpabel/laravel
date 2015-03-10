@@ -19,12 +19,12 @@
                     <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
                 </div>
             </div>
-            <div class="box-content">
+            <div class="box-content" ng-app="mainApp">
                 {!! Form::open(array('role' => 'form', 'id' => 'user_creation', 'accept-charset' => 'utf-8', 'class' => 'form-horizontal', 'url' => 'company/create-user')) !!}
                 <form class="form-horizontal" id="user_creation" method="post" action="">
                     <fieldset>
                         <div class="control-group">
-                            <label class="control-label" for="company_name">User Name</label>
+                            <label class="control-label" for="company_name" >User Name</label>
                             <div class="controls">
                                 <input type="text" required class="input-xlarge " name="username" id="username" placeholder="user name">
                             </div>
@@ -38,10 +38,10 @@
                         <div class="control-group">
                             <label class="control-label" for="user_name">IP Protected(If ip protected click here)</label>
                             <div class="controls">
-                                <input type="checkbox" name="check" id="check" value="need_ip" style="opacity: 100 !important;">
+                                <input type="checkbox" name="check" id="check" value="need_ip" style="opacity: 100 !important;" ng-model="show">
                             </div>
                         </div>
-                        <div class="control-group" id="ip">
+                        <div class="control-group" id="ip" ng-show="show">
                             <label class="control-label" for="ip_address">IP Address</label>
                             <div class="controls">
                                 <input type="text"  class="input-xlarge number" id="ip_address" name="ip_address" placeholder="ip address">
@@ -57,13 +57,19 @@
             </div>
         </div><!--/span-->
     </div>
+    <script>
+       var app = angular.module('mainApp', [], function($interpolateProvider) {
+            $interpolateProvider.startSymbol('{kp');
+    $interpolateProvider.endSymbol('kp}');
+        });
+    </script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $("#ip").hide();
             $("#check").click(function() {
                 $("#ip").toggle();
             });
-        });
+        });*/
     </script>
     <?php $punch_message_error=Session::get('flashError'); if ($punch_message_error) { ?>
     <script type="text/javascript">
