@@ -2,11 +2,6 @@
 @section('content')
 
 <?php
-        //echo '<pre>';
-//print_r($attendanceReport);
-//echo '</pre>';exit;
-
-        //$totalTime = strtotime('00:00:00');
         $totalHours = 0;
         $totalMinutes = 0;
         $totalSeconds = 0;
@@ -17,13 +12,10 @@ foreach($attendanceReport as $report){
     $totalMinutes = 0;
     $totalSeconds = 0;
         }
-    //$totalTime = strtotime('00:00:00');
     $reports[$report->user_id]['id'] = $report->id;
     $reports[$report->user_id]['user_id'] = $report->user_id;
     $reports[$report->user_id]['username'] = $report->User->username;
-    //$reports[$report->user_id]['time'] = strtotime($report->timediff) - strtotime("00:00:00");
     $reports[$report->user_id]['time'] = explode(":", $report->timediff);;
-    //$reports[$report->user_id]['workingTime'] = date("H:i:s", $totalTime = $totalTime +  $reports[$report->user_id]['time']);
     $reports[$report->user_id]['workingHours'] = ($totalHours = $totalHours +  $reports[$report->user_id]['time'][0]);
     $reports[$report->user_id]['workingMinutes'] = ($totalMinutes = $totalMinutes +  $reports[$report->user_id]['time'][1]);
     $reports[$report->user_id]['workingSeconds'] = ($totalSeconds = $totalSeconds +  $reports[$report->user_id]['time'][2]);
