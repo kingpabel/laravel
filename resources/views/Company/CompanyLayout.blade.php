@@ -16,8 +16,8 @@
     {!! HTML::style('css/pnotify/jquery.pnotify.default.icons.css') !!}
     {!! HTML::style('css/pnotify/jquery.pnotify.default.css') !!}
     {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js">
-    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"> </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -28,6 +28,7 @@
         ga('send', 'pageview');
 
     </script>
+
     @yield('jsBottom')
     <script>
         $(function() {
