@@ -144,25 +144,27 @@
     });
 
     myApp.controller('deleteController',function($scope,$http){
-        $scope.delete = function(id){
+        $scope.delete = function(id) {
             var req = {
                 method: 'GET',
-                url: '{!! URL::to("company/delete-leave-category/") !!}/'+id,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                url: '{!! URL::to("company/delete-leave-category/") !!}/' + id,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: ''
             };
-
-            $http(req).success(function(response){
+            var chk = confirm("Are you sure to delete this?");
+            if (chk)
+            {
+            $http(req).success(function (response) {
                 console.log(response);
-                if(response == 'true' ){
-                    $("#row_"+id).html('');
+                if (response == 'true') {
+                    $("#row_" + id).html('');
                     $.pnotify({
                         title: 'Success',
                         text: 'Leave Category Deleted',
                         type: 'success',
                         delay: 3000
                     });
-                }else{
+                } else {
                     $.pnotify({
                         title: 'ERROR',
                         text: response,
@@ -171,6 +173,7 @@
                     });
                 }
             });
+        }
         };
     });
 
