@@ -350,7 +350,6 @@
 
         public function anyLeaveCategory()
         {
-
             if (Request::all()) {
                 $checkExist = LeaveCategories::where('category', Request::input('category'))
                     ->where('company_id', Auth::user()->company_id)
@@ -378,8 +377,10 @@
                     $categoryCreate->category_num = Request::input('category_num');
                     $categoryCreate->save();
                     $response['type'] = 'success';
+                    $response['id'] = $categoryCreate->id;
                     $data['allCategory'] = LeaveCategories::all();
-                    $response['info'] = (String) view('Company.leaveCategoryAjax',$data);
+//                    $response['info'] = (String) view('Company.leaveCategoryAjax',$data);
+                    $response['info'] = 'Leave Category Created Successfully';
                     return Response::json($response);
                 endif;
 
