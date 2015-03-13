@@ -1,6 +1,6 @@
 @extends('Users/UserLayout')
 @section('content')
-<?php echo $welcome_message=Session::get('welcome_message'); ?>
+<?php $welcome_message=Session::get('welcome_message'); ?>
 @if ($welcome_message)
 <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
