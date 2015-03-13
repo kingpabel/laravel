@@ -16,8 +16,14 @@
     {!! HTML::style('css/pnotify/jquery.pnotify.default.icons.css') !!}
     {!! HTML::style('css/pnotify/jquery.pnotify.default.css') !!}
     {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"> </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {!! HTML::script('js/angular.min.js') !!}
+    {!! HTML::script('js/googleChart.js') !!}
+
+    {{--codepan chart --}}
+    {!! HTML::script('js/amCharts.js') !!}
+    {!! HTML::script('js/serial.js') !!}
+    {!! HTML::script('js/none.js') !!}
+
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -176,7 +182,7 @@
 {!! HTML::script('js/charisma/js/jquery.autogrow-textarea.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uploadify-3.1.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.history.js') !!}
-{!! HTML::script('js/charisma/js/charisma.js') !!}
+{{--{!! HTML::script('js/charisma/js/charisma.js') !!}--}}
 
 
 </body>
