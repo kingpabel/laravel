@@ -31,8 +31,14 @@ class UserController extends Controller {
         } else {
             $data['status'] = "Punch In";
         }
-
-        return view('Users.dashBoard', $data);
+         $maxToday= UserDetails::maxRowToday();
+        if($maxToday) {
+            $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($maxToday->login_time);
+            if($timeDiff == 0)
+                $timeDiff = 1;
+            Session::put('timeTrack', $timeDiff);
+        }
+            return view('Users.dashBoard', $data);
     }
 
     public function getLogout()
@@ -49,6 +55,7 @@ class UserController extends Controller {
         $punchOut->logout_date = date('Y-m-d', time());
         $punchOut->logout_time = date('Y-m-d H:i:s', time());
         if($punchOut->save()){
+            Session::forget('timeTrack');
             Session::flash('punchMessageSuccess', 'You Are Punch Out');
         }
         else{
