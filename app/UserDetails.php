@@ -16,6 +16,15 @@ class UserDetails extends Model {
             ->first();
     }
 
+    public static function maxRowToday(){
+
+        return  UserDetails::where('user_id', Auth::user()->id)
+            ->where('login_date', date('Y-m-d'))
+            ->where('logout_date', '0000-00-00')
+            ->orderBy('id', 'DESC')
+            ->first();
+    }
+
     public function User()
     {
         return $this->belongsTo('App\User','user_id','id');
