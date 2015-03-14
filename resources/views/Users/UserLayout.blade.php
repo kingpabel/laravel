@@ -5,6 +5,7 @@
     </title>
     {!! HTML::script('js/charisma/js/jquery-1.7.2.min.js') !!}
     {!! HTML::script('js/pnotify/jquery.pnotify.js') !!}
+    {!! HTML::script('js/timer.js') !!}
     {!! HTML::script('css/bootstrap/js/bootstrap-alert.js') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('css/bootstrap/css/bootstrap-responsive.css') !!}
@@ -22,7 +23,40 @@
 
         ga('create', 'UA-60038966-1', 'auto');
         ga('send', 'pageview');
+    </script>
+    {{--timer js function --}}
+    <script>
 
+        var Example1 = new (function() {
+            var $stopwatch, // Stopwatch element on the page
+                    incrementTime = 70, // Timer speed in milliseconds
+                    currentTime = <?php echo Session::get('timeTrack')*100?>, // Current time in hundredths of a second
+                    updateTimer = function() {
+                        $stopwatch.html(formatTime(currentTime));
+                        currentTime += incrementTime / 10;
+                    },
+                    init = function() {
+                        $stopwatch = $('#stopwatch');
+                        Example1.Timer = $.timer(updateTimer, incrementTime, true);
+                    };
+            this.resetStopwatch = function() {
+                currentTime = 0;
+                this.Timer.stop().once();
+            };
+            $(init);
+        });
+        // Common functions
+        function pad(number, length) {
+            var str = '' + number;
+            while (str.length < length) {str = '0' + str;}
+            return str;
+        }
+        function formatTime(time) {
+            var min = parseInt(time / 6000),
+                    sec = parseInt(time / 100) - (min * 60),
+                    hundredths = pad(time - (sec * 100) - (min * 6000), 2);
+            return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
+        }
     </script>
     @yield('jsBottom')
     <script>
@@ -87,15 +121,19 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- <li><a href="#">Profile</a></li>
-                     <li class="divider"></li> -->
                     <li>
                         {!! link_to("user/logout","Logout") !!}
 
                     </li>
                 </ul>
             </div>
-            <!-- user dropdown ends -->
+            @if(Session::get('timeTrack'))
+            <div class="btn-group pull-right" >
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-user"></i><span class="hidden-phone" id="stopwatch">00:00:00</span>
+                </a>
+            </div>
+            @endif
         </div>
     </div>
 </div>
