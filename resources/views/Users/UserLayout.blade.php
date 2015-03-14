@@ -130,7 +130,7 @@
             @if(Session::get('timeTrack'))
             <div class="btn-group pull-right" >
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-user"></i><span class="hidden-phone" id="stopwatch">00:00:00</span>
+                    <i class="icon-time"></i><span class="hidden-phone" id="stopwatch">00:00:00</span>
                 </a>
             </div>
             @endif
