@@ -98,6 +98,24 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div class="footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adsence for kingpabel blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3284345266094241"
+     data-ad-slot="6634524410"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
     </body>
     </html>
