@@ -311,7 +311,11 @@
                 ->update(array('admin_noti_status' => 0));
             $data['allLeave'] = Leave::whereHas('User', function($q) {
                 $q->where('company_id', Auth::user()->company_id);
-            })->get();
+            })
+                ->whereHas('LeaveCategories', function($q) {
+                    $q->where('deleted_at');
+                })
+                ->get();
             return view('Company.allLeave',$data);
         }
 
@@ -393,6 +397,7 @@
         public function getDeleteLeaveCategory($id)
         {
             $leaveCategoriesDelete = LeaveCategories::find($id);
+            Leave::where('leave_category_id', $id)->delete();
             $leaveCategoriesDelete->delete();
             return 'true';
         }

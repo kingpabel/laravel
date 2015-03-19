@@ -122,7 +122,7 @@
                                 var values = 'grant';
                                 var categoryID = "<?php echo $leave->leave_category_id ?>";
                                 var userID = "<?php echo $leave->user_id ?>";
-                                var categoryBudget = "<?php echo $leave->LeaveCategories->category_num ?>";
+                                var categoryBudget = "<?php //echo $leave->LeaveCategories->category_num ?>";
                                 $.ajax({
                                     url: '{!! URL::to("company/change-leave-status/$leave->id") !!}',
                                     type: "GET",
@@ -173,7 +173,8 @@
                             });
                         });
                     </script>
-                    <?php endforeach;
+                    <?php
+                    endforeach;
                     } else{ ?>
                     <tr>
                         <td>No data are available</td>
