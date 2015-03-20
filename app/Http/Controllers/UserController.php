@@ -66,19 +66,24 @@ class UserController extends Controller {
     public function getPunchIn()
     {
         $last_id = UserDetails::maxRow();
-        if (Auth::user()->time) {
-            if (date('Y-m-d', time()) == $last_id->login_date) {
-                $status = 'Present';
-            } else {
-                if (date('H:i:s', time()) > date(Auth::user()->time, time())) {
-                    $status = 'Late';
-                    Session::flash('welcome_message', 'You Are Late Today!');
-                } else {
-                    Session::flash('welcome_message', 'Thanks for come in time');
+        if($last_id) {
+            if (Auth::user()->time) {
+                if (date('Y-m-d', time()) == $last_id->login_date) {
                     $status = 'Present';
+                } else {
+                    if (date('H:i:s', time()) > date(Auth::user()->time, time())) {
+                        $status = 'Late';
+                        Session::flash('welcome_message', 'You Are Late Today!');
+                    } else {
+                        Session::flash('welcome_message', 'Thanks for come in time');
+                        $status = 'Present';
+                    }
                 }
+            } else {
+                $status = 'Present';
             }
-        } else {
+        }
+        else {
             $status = 'Present';
         }
         $punchIn = new UserDetails();
