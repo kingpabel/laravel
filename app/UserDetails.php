@@ -1,9 +1,13 @@
 <?php namespace App;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class UserDetails extends Model {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $table = 'user_details';
 
     public $timestamps = true;

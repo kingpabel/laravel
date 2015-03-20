@@ -315,7 +315,8 @@
                 ->whereHas('LeaveCategories', function($q) {
                     $q->where('deleted_at');
                 })
-                ->paginate(5);
+                ->orderBy('id', 'desc')
+                ->paginate(15);
             $data['leaveTable'] = view('Company.leaveTable', $data);
             return view('Company.allLeave',$data);
         }
@@ -329,7 +330,8 @@
                 ->whereHas('LeaveCategories', function($q) {
                     $q->where('deleted_at');
                 })
-                ->paginate(5);
+                ->orderBy('id', 'desc')
+                ->paginate(15);
             return view('Company.leaveTable', $data);
         }
 
@@ -595,5 +597,13 @@
         {
             Auth::logout();
             return redirect('/');
+        }
+
+        public function getDeleteUser($id)
+        {
+            $user = \App\User::find($id);
+            UserDetails::where('user_id', $id)->delete();
+            Leave::where('user_id', $id)->delete();
+            $user->delete();
         }
     }

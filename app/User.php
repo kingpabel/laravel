@@ -5,8 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+    use SoftDeletes;
 
 	use Authenticatable, CanResetPassword;
 
@@ -15,6 +17,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var string
 	 */
+    protected $dates = ['deleted_at'];
 	protected $table = 'users';
 
     public $timestamps = true;

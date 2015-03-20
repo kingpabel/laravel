@@ -48,7 +48,7 @@
                     </thead>
                     <tbody id="update">
                     <?php foreach ($allUser as $user): ?>
-                    <tr>
+                    <tr id="row_<?php echo $user->id ?>">
 
                         <td>  <?php echo $user->username ?></td>
                         <td class="center">
@@ -78,7 +78,10 @@
                             <a class="btn btn-info" data-toggle="modal" href="#myReport_<?php echo $user->id; ?>" style="text-decoration: none" href="<?php //echo base_url() ?>company/add_ip/<?php echo $user->user_id ?>">
                                 <span class="label label-success">Add IP</span></a>
                             <?php } ?>
-
+                            <a class="btn btn-danger" id="delete_<?php echo $user->id ?>">
+                                <i class="icon-trash icon-white"></i>
+                                Delete
+                            </a>
                         </td>
                     </tr>
 
@@ -105,6 +108,33 @@
                             </div>
                         </form>
                     </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $("#delete_<?php echo $user->id ?>").click(function(event) {
+                                event.preventDefault();
+                                var values = 'delete';
+                                var chk = confirm("Are you sure to delete this?");
+                                if (chk)
+                                {
+                                    $.ajax({
+                                        url: '{!! URL::to("company/delete-user/$user->id") !!}',
+                                        type: "GET",
+                                        data: {status: values},
+                                        cache: false,
+                                        success: function(data) {
+                                            $("#row_<?php echo $user->id ?>").hide();
+                                            $.pnotify({
+                                                title: 'Message',
+                                                text: 'User Deleted With His All Information.',
+                                                type: 'success',
+                                                delay: 3000
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    </script>
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $("#add_ip_<?php echo $user->id?>").submit(function(event) {

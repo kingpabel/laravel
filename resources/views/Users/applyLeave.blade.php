@@ -94,6 +94,7 @@
                     success: function(data) {
                         $('#loader').hide();
                         if(data == 'true') {
+                            $("#leave")[0].reset();
                             $.pnotify({
                                 title: 'Success',
                                 text: 'Leave Successfully Apply',
