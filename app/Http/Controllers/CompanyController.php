@@ -349,7 +349,7 @@
             $data['allLeave'] = Leave::whereHas('User', function($q) {
                 $q->where('company_id', Auth::user()->company_id);
             })->get();
-            return view('Company.allLeaveAjax',$data);
+            return (String) view('Company.allLeaveAjax',$data);
         }
 
         public function anyLeaveCategory()
