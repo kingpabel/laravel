@@ -10,7 +10,7 @@
 @if ($leaveUpdate)
 <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><a style="text-decoration:none; cursor:pointer" href="<?php // echo base_url()  ?>user/my_leave">Your's {{ $leaveUpdate }} Leave Application Updated</a></strong>
+    <strong><a style="text-decoration:none; cursor:pointer" href="{!! URL::to('user/my-leave') !!}">Your's {{ $leaveUpdate }} Leave Application Updated</a></strong>
 </div>
 @endif
 
