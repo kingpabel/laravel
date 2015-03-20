@@ -56,7 +56,7 @@
                     data: values,
                     cache: false,
                     beforeSend: function(){
-                        $('#tableData').html('<img src="{{ URL::to('images/ajax-loader.gif') }}">');
+                        $('#tableData').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
                     },
                     success: function(data){
                         $('#tableData').html(data);
