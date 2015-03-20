@@ -1,4 +1,3 @@
-<?php $currentPageNumber = $allLeave->currentPage()?>
 <table class="table table-striped table-bordered bootstrap-datatable datatable" cellspacing="0" width="100%">
     <thead>
     <tr>
@@ -114,7 +113,7 @@
                                 delay: 3000
                             });
                         }else {
-                            window.location.href = '<?php echo URL::to("company/all-leave/?page=$currentPageNumber")?>';
+                            location.reload();
                         }
                     }
                 });
@@ -132,7 +131,7 @@
                     type: "GET",
                     data: {status: values},
                     success: function(data) {
-                        window.location.href = '<?php echo URL::to("company/all-leave/?page=$currentPageNumber")?>';
+                        location.reload();
                     }
                 });
 
@@ -155,5 +154,5 @@
     </tbody>
 </table>
 <ul class="pagination">
-    <?php echo $allLeave->render(); ?>
+    {!! str_replace('/?', '?', $allLeave->render()) !!}
 </ul>
