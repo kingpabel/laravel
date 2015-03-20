@@ -97,8 +97,19 @@
         public  function getAllUser()
         {
             $user = new \App\User();
-            $data['allUser'] = $user->allUser();
+            $data['allUser'] = \App\User::where('company_id', Auth::user()->company_id)
+                ->where('user_label', '>', 1)->paginate(10);
+            $data['userTable'] = view('Company.userTable', $data);
             return view('Company.allUser',$data);
+        }
+
+        public function getSearchUser(){
+            $search = Input::get('search');
+            $user = new \App\User();
+            $data['allUser'] = $user->whereRaw("username regexp '[[:<:]]$search'")
+                ->where('company_id', Auth::user()->company_id)
+                    ->where('user_label', '>', 1)->paginate(10);
+            return view('Company.userTable', $data);
         }
 
         public function anyStatusChange($id = null)
@@ -110,6 +121,8 @@
             if($status == 'inactive')
                 $user->status = 0;
             $user->save();
+            Session::flash('flashSuccess', 'Status Changed');
+            return 'true';
             $user = new \App\User();
             $data['allUser'] = $user->allUser();
             return view('Company.allUserAjax',$data);
@@ -133,6 +146,7 @@
                     $userCreate->ip_address = trim(Request::input('ip_address'));
                     $userCreate->save();
                 endif;
+                    Session::flash('flashSuccess', 'IP Added Successfully');
                     $user = new \App\User();
                     $data['allUser'] = $user->allUser();
                     $response['type'] = 'success';
@@ -145,6 +159,8 @@
             $user = \App\User::find($id);
             $user->ip_address = '';
             $user->save();
+            Session::flash('flashSuccess', 'IP Removed');
+            return 'true';
             $user = new \App\User();
             $data['allUser'] = $user->allUser();
             return view('Company.allUserAjax',$data);
