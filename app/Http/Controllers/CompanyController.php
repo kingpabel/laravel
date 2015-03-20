@@ -315,8 +315,22 @@
                 ->whereHas('LeaveCategories', function($q) {
                     $q->where('deleted_at');
                 })
-                ->get();
+                ->paginate(5);
+            $data['leaveTable'] = view('Company.leaveTable', $data);
             return view('Company.allLeave',$data);
+        }
+
+        public function getSearchLeave(){
+            $data['allLeave'] = Leave::whereHas('User', function($q) {
+                $search = Input::get('search');
+                $q->where('company_id', Auth::user()->company_id);
+                $q->whereRaw("username regexp '[[:<:]]$search'");
+            })
+                ->whereHas('LeaveCategories', function($q) {
+                    $q->where('deleted_at');
+                })
+                ->paginate(5);
+            return view('Company.leaveTable', $data);
         }
 
         public function getChangeLeaveStatus($id)
@@ -337,14 +351,19 @@
                 $statusChange->leave_status = 1;
                 $statusChange->user_noti_status = 1;
                 $statusChange->save();
+                Session::flash('success', 'Leave Status Changed');
+                return 'true';
             }elseif(Request::input('status') == 'reject'){
                 $statusChange = Leave::find($id);
                 $statusChange->leave_status = 2;
                 $statusChange->user_noti_status = 1;
                 $statusChange->save();
+                Session::flash('success', 'Leave Status Changed');
+                return 'true';
             }elseif(Request::input('status') == 'delete'){
                 $leaveDelete = Leave::find($id);
                 $leaveDelete->delete();
+                return 'true';
             }
             $data['allLeave'] = Leave::whereHas('User', function($q) {
                 $q->where('company_id', Auth::user()->company_id);
