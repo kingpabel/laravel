@@ -26,37 +26,33 @@
     </script>
     {{--timer js function --}}
     <script>
+        $(document).ready(function() {
+            function startTimer(duration, display) {
+                var timer = duration, minutes, seconds;
+                setInterval(function () {
+                    hours = parseInt(timer / 60 / 60, 10);
+                    minutes = parseInt(timer / 60 , 10);
+                    minutes = parseInt(minutes % 60 , 10);
+                    seconds = parseInt(timer % 60, 10);
 
-        var Example1 = new (function() {
-            var $stopwatch, // Stopwatch element on the page
-                    incrementTime = 70, // Timer speed in milliseconds
-                    currentTime = <?php echo Session::get('timeTrack')*100?>, // Current time in hundredths of a second
-                    updateTimer = function() {
-                        $stopwatch.html(formatTime(currentTime));
-                        currentTime += incrementTime / 10;
-                    },
-                    init = function() {
-                        $stopwatch = $('#stopwatch');
-                        Example1.Timer = $.timer(updateTimer, incrementTime, true);
-                    };
-            this.resetStopwatch = function() {
-                currentTime = 0;
-                this.Timer.stop().once();
-            };
-            $(init);
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.text(hours + ":" +minutes + ":" + seconds);
+
+                    if (++timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+            }
+
+            jQuery(function ($) {
+                var fiveMinutes = parseInt(<?php echo Session::get('timeTrack')?>),
+                        display = $('#time');
+                startTimer(fiveMinutes, display);
+            });
         });
-        // Common functions
-        function pad(number, length) {
-            var str = '' + number;
-            while (str.length < length) {str = '0' + str;}
-            return str;
-        }
-        function formatTime(time) {
-            var min = parseInt(time / 6000),
-                    sec = parseInt(time / 100) - (min * 60),
-                    hundredths = pad(time - (sec * 100) - (min * 6000), 2);
-            return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
-        }
     </script>
     @yield('jsBottom')
     <script>
@@ -130,7 +126,7 @@
             @if(Session::get('timeTrack'))
             <div class="btn-group pull-right" >
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-time"></i><span class="hidden-phone" id="stopwatch">00:00:00</span>
+                    <i class="icon-time"></i><span class="hidden-phone" id="time">00:00:00</span>
                 </a>
             </div>
             @endif
@@ -212,7 +208,7 @@
 {!! HTML::script('js/charisma/js/jquery.autogrow-textarea.js') !!}
 {!! HTML::script('js/charisma/js/jquery.uploadify-3.1.min.js') !!}
 {!! HTML::script('js/charisma/js/jquery.history.js') !!}
-{!! HTML::script('js/charisma/js/charisma.js') !!}
+{{--{!! HTML::script('js/charisma/js/charisma.js') !!}--}}
 
 </body>
 </html>

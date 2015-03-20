@@ -17,8 +17,12 @@ class UserController extends Controller {
 
     public function __construct()
     {
+        $this->beforeFilter(function(){
+            $this->counter();
+        });
         date_default_timezone_set(Auth::user()->CompanyUser->time_zone);
     }
+
     public function getIndex()
     {
         $data = array();
@@ -31,14 +35,18 @@ class UserController extends Controller {
         } else {
             $data['status'] = "Punch In";
         }
-         $maxToday= UserDetails::maxRowToday();
+            return view('Users.dashBoard', $data);
+    }
+
+    public function counter()
+    {
+        $maxToday= UserDetails::maxRowToday();
         if($maxToday) {
             $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($maxToday->login_time);
             if($timeDiff == 0)
                 $timeDiff = 1;
             Session::put('timeTrack', $timeDiff);
         }
-            return view('Users.dashBoard', $data);
     }
 
     public function getLogout()
