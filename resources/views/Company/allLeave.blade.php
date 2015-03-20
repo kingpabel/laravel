@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <table id="example" class="table table-striped table-bordered bootstrap-datatable datatable" cellspacing="0" width="100%">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Username</th>
