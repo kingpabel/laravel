@@ -55,7 +55,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  =>  'attendance_cake',
+			'database'  =>  'attendance',
 			'username'  => 'root',
 			'password'  =>  'root',
 			'charset'   => 'utf8',

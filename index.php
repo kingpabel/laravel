@@ -1,2 +1,2 @@
 <?php
-header('Location: http://www.kingpabel.com/attendance_new/public');
+header('Location: http://localhost/laravel/public');
