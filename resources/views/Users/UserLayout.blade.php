@@ -27,9 +27,24 @@
     {{--timer js function --}}
     <script>
         $(document).ready(function() {
-            function startTimer(duration, display) {
+            function timeNow() {
+                var d = new Date(),
+                        h = (d.getHours()<10?'0':'') + d.getHours(),
+                        m = (d.getMinutes()<10?'0':'') + d.getMinutes();
+                        s = (d.getSeconds()<10?'0':'') + d.getSeconds();;
+                return h + ':' + m+ ':' + s;
+            }
+            @if(Auth::user()->auto_punch_out_time != '00:00:00')
+            var autoPunchOutTime = "{!! Auth::user()->auto_punch_out_time !!}";
+            @endif
+    function startTimer(duration, display) {
                 var timer = duration, minutes, seconds;
                 setInterval(function () {
+                    @if(Auth::user()->auto_punch_out_time != '00:00:00')
+                        if(autoPunchOutTime == timeNow() || autoPunchOutTime < timeNow()){
+                            window.location.href = "{!! URL::to('user/punch-out') !!}";
+                        }
+                    @endif
                     hours = parseInt(timer / 60 / 60, 10);
                     minutes = parseInt(timer / 60 , 10);
                     minutes = parseInt(minutes % 60 , 10);
@@ -47,11 +62,13 @@
                 }, 1000);
             }
 
-            jQuery(function ($) {
-                var fiveMinutes = parseInt(<?php echo Session::get('timeTrack')?>),
-                        display = $('#time');
-                startTimer(fiveMinutes, display);
-            });
+            @if(Session::has('timeTrack'))
+                jQuery(function ($) {
+                    var fiveMinutes = parseInt(<?php echo Session::get('timeTrack')?>),
+                            display = $('#time');
+                    startTimer(fiveMinutes, display);
+                });
+            @endif
         });
     </script>
     @yield('jsBottom')

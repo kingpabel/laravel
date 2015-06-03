@@ -48,6 +48,13 @@
                                 <input type="button" value="Update" class="btn btn-default btn btn-primary" id="time_update">
                             </div>
                         </div>
+                        <div class="control-group">
+                            <label class="control-label" for="auto_punch_out_time">Auto Punch Out Time</label>
+                            <div class="controls">
+                                <input type="text" required class="input-xlarge inputmask" id="auto_punch_out_time" name="auto_punch_out_time" placeholder="Use 24 hours time format" value="<?php echo $user->auto_punch_out_time?>">
+                                <input type="button" value="Update" class="btn btn-default btn btn-primary" id="auto_punch_out_time_update">
+                            </div>
+                        </div>
                         <div id="loader">
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf">
@@ -146,6 +153,41 @@
                             $.pnotify({
                                 title: 'Message',
                                 text: 'Time Updated Successfully',
+                                type: 'success',
+                                delay: 3000
+                            });
+                        }else{
+                            $.pnotify({
+                                title: 'Message',
+                                text: data,
+                                type: 'error',
+                                delay: 3000
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#auto_punch_out_time_update").click(function() {
+                var values = $('#auto_punch_out_time').val();
+                var csrf = $('#csrf').val();
+                $.ajax({
+                    url: '{!! URL::to("company/update-auto-punch-out-time/$user->id") !!}',
+                    type: "POST",
+                    data: {time: values, _token: csrf},
+                    cache: false,
+                    beforeSend: function(){
+                        $('#loader').html('<img src="{{ URL::to('images/loader_gif.gif') }}" style="height: 100px;margin-left: 100px;">');
+                    },
+                    success: function(data) {
+                        $('#loader').hide();
+                        if(data == 'true') {
+                            $.pnotify({
+                                title: 'Message',
+                                text: 'Auto Punch Out Time Updated Successfully',
                                 type: 'success',
                                 delay: 3000
                             });

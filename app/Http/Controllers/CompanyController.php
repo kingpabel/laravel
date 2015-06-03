@@ -219,6 +219,22 @@
                 return 'true';
         }
 
+        public function  postUpdateAutoPunchOutTime($id){
+            $rules = array(
+                'time' => "required|date_format:H:i:s",
+            );
+            /* Laravel Validator Rules Apply */
+            $validator = Validator::make(Input::all(), $rules);
+            if ($validator->fails()):
+                return $validator->messages()->first();
+            else:
+                $userUpdate = \App\User::find($id);
+                $userUpdate->auto_punch_out_time = Request::input('time');
+                $userUpdate->save();
+            endif;
+            return 'true';
+        }
+
         public function anyUpdateMe()
         {
             if (Request::all()) {
