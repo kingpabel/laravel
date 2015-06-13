@@ -25,6 +25,7 @@ class UserController extends Controller {
 
     public function getIndex()
     {
+        LoginController::autoPunchOutCheck(array(Auth::user()->id));
         $data = array();
         $data['leaveUpdate'] = Leave::where('user_id', Auth::user()->id)
                                     ->where('user_noti_status', 1)
@@ -51,6 +52,7 @@ class UserController extends Controller {
 
     public function getLogout()
     {
+        Session::forget('timeTrack');
         Auth::logout();
         return redirect('/');
     }
@@ -58,16 +60,18 @@ class UserController extends Controller {
     public function getPunchOut()
     {
         $last_id = UserDetails::maxRow();
-        $last_id = $last_id->id;
-        $punchOut = UserDetails::find($last_id);
-        $punchOut->logout_date = date('Y-m-d', time());
-        $punchOut->logout_time = date('Y-m-d H:i:s', time());
-        if($punchOut->save()){
-            Session::forget('timeTrack');
-            Session::flash('punchMessageSuccess', 'You Are Punch Out');
-        }
-        else{
-            Session::flash('punchMessageError', 'There is Error When You Are Punch Out');
+        if($last_id->logout_date = '0000-00-00'){
+            $last_id = $last_id->id;
+            $punchOut = UserDetails::find($last_id);
+            $punchOut->logout_date = date('Y-m-d', time());
+            $punchOut->logout_time = date('Y-m-d H:i:s', time());
+            if($punchOut->save()){
+                Session::forget('timeTrack');
+                Session::flash('punchMessageSuccess', 'You Are Punch Out');
+            }
+            else{
+                Session::flash('punchMessageError', 'There is Error When You Are Punch Out');
+            }
         }
         return redirect('user');
     }

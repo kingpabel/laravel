@@ -26,7 +26,7 @@
 
         public function  getIndex()
         {
-
+            LoginController::autoPunchOutCheck(\App\User::UserIdList());
             $data['startDate'] = date('Y-m-d');
             $data['endDate'] = date('Y-m-d');
             $data['attendanceReport'] = UserDetails::
