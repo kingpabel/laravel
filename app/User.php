@@ -71,4 +71,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
     }
 
+    public static function UserIdList(){
+        return User::where('company_id', Auth::user()->company_id)
+            ->where('status', 1)
+            ->where('user_label', '>', 1)->lists('id');
+    }
+
 }
