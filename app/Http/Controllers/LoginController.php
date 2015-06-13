@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 use App\Company;
 use App\User;
+use App\UserDetails;
 use Auth;
 use Request;
 use Session;
@@ -103,6 +104,25 @@ class LoginController extends Controller {
         }else {
             $data['menu'] = 'Create';
             return view('createCompany',$data);
+        }
+    }
+
+    public static function autoPunchOutCheck($userIDs = array()){
+        foreach($userIDs as $userId){
+            $userLastDetails = UserDetails::maxRow($userId);
+            $userInfo = \App\User::find($userId);
+            if($userLastDetails->count() > 0 && $userLastDetails->logout_date == '0000-00-00' && $userInfo->auto_punch_out_time != '00:00:00' && strtotime(date($userInfo->auto_punch_out_time)) <= strtotime(date("Y-m-d H:i:s"))){
+                $userLastDetails->logout_date = $userLastDetails->login_date;
+                $userLastDetails->logout_time = $userLastDetails->login_date.' '.$userInfo->auto_punch_out_time;
+                $userLastDetails->save();
+                Session::forget('timeTrack');
+            }
+            elseif($userLastDetails->count() > 0 && $userLastDetails->logout_date == '0000-00-00' && $userInfo->auto_punch_out_time != '00:00:00' && strtotime(date('Y-m-d')) > strtotime(date("$userLastDetails->login_date"))){
+                $userLastDetails->logout_date = $userLastDetails->login_date;
+                $userLastDetails->logout_time = $userLastDetails->login_date.' '.$userInfo->auto_punch_out_time;
+                $userLastDetails->save();
+                Session::forget('timeTrack');
+            }
         }
     }
 }
