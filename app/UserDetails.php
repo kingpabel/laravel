@@ -13,11 +13,14 @@ class UserDetails extends Model {
     public $timestamps = true;
 
     //
-    public static function maxRow(){
-
-        return  UserDetails::where('user_id', Auth::user()->id)
-            ->orderBy('id', 'DESC')
-            ->first();
+    public static function maxRow($UserId = false){
+        $query = new UserDetails();
+        if($UserId)
+            $query = $query->where('user_id', $UserId);
+        else
+            $query = $query->where('user_id', Auth::user()->id);
+        return  $query->orderBy('id', 'DESC')
+                ->first();
     }
 
     public static function maxRowToday(){
