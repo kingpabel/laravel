@@ -444,7 +444,7 @@
                                 </path>
                             </svg>
                             <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs"
-                                    class="underline text-gray-900 dark:text-white">Documentation Main</a></div>
+                                    class="underline text-gray-900 dark:text-white">Documentation Main Update</a></div>
                         </div>
 
                         <div class="ml-12">
