@@ -5,7 +5,7 @@ services:
         image: nginx:alpine
         container_name: laravel-nginx
         ports:
-            - "81:80"
+            - "8080:80"
         volumes:
             - .:/var/www/html:cached
             - ./docker/nginx:/etc/nginx/conf.d
