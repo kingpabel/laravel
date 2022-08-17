@@ -40,9 +40,9 @@ USER www-data
 
 # USER $user
 
-COPY . .
+# COPY . .
 
-COPY --chown=www-data:www-data . /var/www/html
+COPY --chown=www-data:www-data . .
 
 # RUN chown -R www-data:www-data /var/www/html
 
