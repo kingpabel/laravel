@@ -12,6 +12,8 @@ services:
         restart: unless-stopped #always on production to run all the time
         depends_on:
             - php-fpm
+        networks:
+            - laravel-networks
 
     php-fpm:
         build:
@@ -20,3 +22,9 @@ services:
         restart: unless-stopped
         volumes:
             - .:/var/www/html:cached
+        networks:
+            - laravel-networks
+
+networks:
+    laravel-networks:
+        driver: bridge
