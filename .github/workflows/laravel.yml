@@ -68,28 +68,44 @@ jobs:
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
 
       # Authenticate Docker to Google Cloud Artifact Registry
-      - name: Docker Auth
-        id: docker-auth
-        uses: 'docker/login-action@v1'
-        with:
-          username: 'kingpabel'
-          password: 'p13151315'
-          registry: 'kingpabel'
+      # - name: Docker Auth
+      #   id: docker-auth
+      #   uses: 'docker/login-action@v1'
+      #   with:
+      #     username: 'kingpabel'
+      #     password: 'p13151315'
+      #     registry: 'kingpabel'
 
-      - name: Build and Push Container
-        run: |-
-          docker build -t "kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-          docker push "kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+      # - name: Build and Push Container
+      #   run: |-
+      #     docker build -t "kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
+      #     docker push "kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
       # END - Docker auth and build
 
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0
-        with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          # NOTE: If using a pre-built image, update the image name here
-          image: kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+      # - name: Deploy to Cloud Run
+      #   id: deploy
+      #   uses: google-github-actions/deploy-cloudrun@v0
+      #   with:
+      #     service: ${{ env.SERVICE }}
+      #     region: ${{ env.REGION }}
+      #     # NOTE: If using a pre-built image, update the image name here
+      #     image: kingpabel/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+
+      # Configure gcloud CLI
+      - name: gcloud Set up
+        run: |
+            gcloud config set project $PROJECT_ID
+      # Build and push image to Google Container Registry
+      - name: Build
+        run: |
+            gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE:$GITHUB_SHA
+      # Deploy image to Cloud Run
+      - name: Deploy
+        run: |
+            gcloud run deploy $SERVICE \
+              --region $REGION \
+              --image gcr.io/$PROJECT_ID/$SERVICE:$GITHUB_SHA \
+              --platform managed
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
