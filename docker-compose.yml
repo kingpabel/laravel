@@ -19,4 +19,4 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         volumes:
-            - .:/var/www/html:cachedf
+            - .:/var/www/html:cached
