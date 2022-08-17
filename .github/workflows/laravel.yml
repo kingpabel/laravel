@@ -94,18 +94,18 @@ jobs:
       # Configure gcloud CLI
       - name: gcloud Set up
         run: |
-            gcloud config set project $PROJECT_ID
+            "gcloud config set project ${{ env.PROJECT_ID }}""
       # Build and push image to Google Container Registry
       - name: Build
         run: |
-            gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE:$GITHUB_SHA
+            "gcloud builds submit -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
       # Deploy image to Cloud Run
       - name: Deploy
         run: |
-            gcloud run deploy $SERVICE \
-              --region $REGION \
-              --image gcr.io/$PROJECT_ID/$SERVICE:$GITHUB_SHA \
-              --platform managed
+            "gcloud run deploy ${{ env.SERVICE }} \
+              --region ${{ env.REGION }} \
+              --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} \
+              --platform managed"
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
