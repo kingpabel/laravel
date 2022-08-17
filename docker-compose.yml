@@ -5,36 +5,36 @@ services:
         image: nginx:alpine
         container_name: laravel-nginx
         ports:
-            - "8080:8080"
+            - "8080:80"
         environment:
             PORT: 8080
             HOST: 0.0.0.0
-        volumes:
-            - .:/var/www/html:cached
-            - ./docker/nginx:/etc/nginx/conf.d
+        # volumes:
+            # - .:/var/www/html:cached
+            # - ./docker/nginx:/etc/nginx/conf.d
         restart: unless-stopped #always on production to run all the time
         platform: linux/amd64
-        depends_on:
-            - php-fpm
+        # depends_on:
+            # - php-fpm
         networks:
             - laravel-networks
 
-    php-fpm:
-        build:
-            args:
-                user: essana3 # your username (echo $USER)
-                uid: 1000 # your uid (id -u)
-            context: .
-            dockerfile: Dockerfile
-        environment:
-            PORT: 8080
-            HOST: 0.0.0.0
-        restart: unless-stopped
-        # volumes:
-        #     - .:/var/www/html:cached
-        platform: linux/amd64
-        networks:
-            - laravel-networks
+    # php-fpm:
+    #     build:
+    #         args:
+    #             user: essana3 # your username (echo $USER)
+    #             uid: 1000 # your uid (id -u)
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     environment:
+    #         PORT: 8080
+    #         HOST: 0.0.0.0
+    #     restart: unless-stopped
+    #     # volumes:
+    #     #     - .:/var/www/html:cached
+    #     platform: linux/amd64
+    #     networks:
+    #         - laravel-networks
 
 networks:
     laravel-networks:
