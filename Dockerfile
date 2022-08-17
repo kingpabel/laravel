@@ -1,5 +1,9 @@
 FROM php:8.0-fpm-alpine
 
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
 ENV PECL_EXTENSIONS="pcov psr redis xdebug"
 ENV PHP_EXTENSIONS="bz2 gd exif gettext intl pcntl pdo_mysql zip"
 
@@ -26,17 +30,30 @@ RUN apk add --no-cache --virtual .build-deps \
 # Copy Composer binary from the Composer official Docker image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Create system user to run Composer and Artisan Commands
+# RUN useradd -G www-data,root -u $uid -d /home/$user $user
+# RUN mkdir -p /home/$user/.composer && \
+#     chown -R $user:$user /home/$user
+
 WORKDIR /var/www/html
 USER www-data
 
-# COPY . .
+# USER $user
 
-# RUN composer install --no-interaction --optimize-autoloader --no-dev
+COPY . .
+
+COPY --chown=www-data:www-data . /var/www/html
+
+# RUN chown -R www-data:www-data /var/www/html
+
+# ADD . /var/www/html
+
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 # Optimizing Configuration loading
-# RUN php artisan config:cache
+RUN php artisan config:cache
 # Optimizing Route loading
-# RUN php artisan route:cache
+RUN php artisan route:cache
 # Optimizing View loading
-# RUN php artisan view:cache
+RUN php artisan view:cache
 
 # RUN chown -R application:application .
