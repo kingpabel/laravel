@@ -1,6 +1,8 @@
+FROM nginx:alpine
+
 # FROM php:8.0-fpm-alpine
 
-# # Arguments defined in docker-compose.yml
+# Arguments defined in docker-compose.yml
 # ARG user
 # ARG uid
 
