@@ -1,5 +1,7 @@
 FROM nginx:alpine
 
+# nothing
+
 # FROM php:8.0-fpm-alpine
 
 # Arguments defined in docker-compose.yml
