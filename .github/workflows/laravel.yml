@@ -56,7 +56,7 @@ jobs:
         with:
           token_format: 'access_token'
           workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}' #my-service-account@team-rnd-wpdev-arcom.iam.gserviceaccount.com
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
 
 
       # - name: Google Auth
