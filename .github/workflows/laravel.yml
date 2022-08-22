@@ -50,15 +50,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          token_format: 'access_token'
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
 
 
-      # Authenticate Docker to Google Cloud Artifact Registr
+      # - name: Google Auth
+      #   id: auth
+      #   uses: 'google-github-actions/auth@v0'
+      #   with:
+      #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+
+      # Authenticate Docker to Google Cloud Artifact Register
       - name: Docker Auth
         id: docker-auth
         uses: 'docker/login-action@v1'
