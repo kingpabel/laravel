@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: 'team-rnd-wpdev-arcom' # TODO: update Google Cloud project id
   GAR_LOCATION: 'us-central1' # TODO: update Artifact Registry location
-  SERVICE: 'hello' # TODO: update Cloud Run service name
+  SERVICE: 'laravel' # TODO: update Cloud Run service name
   REGION: 'us-central1' # TODO: update Cloud Run service region
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
         with:
           token_format: 'access_token'
           workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}' #my-service-account@team-rnd-wpdev-arcom.iam.gserviceaccount.com
 
 
       # - name: Google Auth
