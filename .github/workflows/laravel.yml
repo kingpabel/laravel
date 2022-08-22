@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: 'team-rnd-wpdev-arcom' # TODO: update Google Cloud project id
   GAR_LOCATION: 'us-central1' # TODO: update Artifact Registry location
-  SERVICE: 'test' # TODO: update Cloud Run service name
+  SERVICE: 'hello' # TODO: update Cloud Run service name
   REGION: 'us-central1' # TODO: update Cloud Run service region
 
 jobs:
@@ -78,7 +78,7 @@ jobs:
       - name: Build and Push Container
         run: |-
           docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest"
       # END - Docker auth and build
 
       - name: Deploy to Cloud Run
@@ -88,7 +88,7 @@ jobs:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           # NOTE: If using a pre-built image, update the image name here
-          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest
 
 
       # - name: Deploy to Cloud Run
