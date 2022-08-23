@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: 'team-rnd-wpdev-arcom' # TODO: update Google Cloud project id
   GAR_LOCATION: 'us-central1' # TODO: update Artifact Registry location
-  SERVICE: 'hello' # TODO: update Cloud Run service name
+  SERVICE: 'laravel' # TODO: update Cloud Run service name
   REGION: 'us-central1' # TODO: update Cloud Run service region
 
 jobs:
