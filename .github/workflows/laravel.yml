@@ -50,6 +50,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # To authenticate https://github.com/google-github-actions/auth#setting-up-workload-identity-federation
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v0'

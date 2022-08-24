@@ -9,9 +9,9 @@ services:
         environment:
             PORT: 8080
             HOST: 0.0.0.0
-        # volumes:
-            # - .:/var/www/html:cached
-            # - ./docker/nginx:/etc/nginx/conf.d
+        volumes:
+            - .:/var/www/html:cached
+            - ./docker/nginx:/etc/nginx/conf.d
         restart: unless-stopped #always on production to run all the time
         platform: linux/amd64
         # depends_on:
