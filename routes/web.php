@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Google\Cloud\Logging\LoggingClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     Log::info('hello test log');
+    $logging = new LoggingClient([
+        'projectId' => env('PROJECT_ID')
+    ]);
+    $logger = $logging->psrLogger('app');
+    $logger->info('log from stack driver');
+
     return view('welcome');
 });
