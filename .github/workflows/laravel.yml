@@ -34,11 +34,11 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+    # - name: Execute tests (Unit and Feature tests) via PHPUnit
+    #   env:
+    #     DB_CONNECTION: sqlite
+    #     DB_DATABASE: database/database.sqlite
+    #   run: vendor/bin/phpunit
   deploy:
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
