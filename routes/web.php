@@ -20,24 +20,8 @@ Route::get('/', function () {
     $logging = new LoggingClient([
         'projectId' => env('PROJECT_ID')
     ]);
-
-    /* $logger = $logging->psrLogger('app');
-    $logger->info('log from stack driver'); */
-
-    // The name of the log to write to
-    $logName = 'my-log';
-
-    // Selects the log to write to
-    $logger = $logging->logger($logName);
-
-    // The data to log
-    $text = 'Hello, world!';
-
-    // Creates the log entry
-    $entry = $logger->entry($text);
-
-    // Writes the log entry
-    $logger->write($entry);
+    $logger = $logging->psrLogger('hello-app-name');
+    $logger->info('log from stack driver');
 
     return view('welcome');
 });
