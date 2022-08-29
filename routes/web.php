@@ -17,12 +17,11 @@ use Google\Cloud\Logging\LoggingClient;
 
 Route::get('/', function () {
     Log::info('hello test log');
-    $logging = new LoggingClient([
-        'projectId' => env('PROJECT_ID')
-    ]);
-    $logger = $logging->psrLogger('hello-app-name');
+
+    $logging = new LoggingClient();
+    $logger  = $logging->psrLogger('hello-app-name');
     $logger->info('log from stack driver');
 
-    throw new Exception('Error Processing Request');
+    // throw new Exception('Error Processing Request');
     return view('welcome');
 });
