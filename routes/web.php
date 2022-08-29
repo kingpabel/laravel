@@ -23,6 +23,6 @@ Route::get('/', function () {
     $logger = $logging->psrLogger('hello-app-name');
     $logger->info('log from stack driver');
 
-    throw new Exception('Error Processing Request', 1);
+    throw new Exception('Error Processing Request');
     return view('welcome');
 });
