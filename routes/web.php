@@ -16,12 +16,11 @@ use Google\Cloud\Logging\LoggingClient;
 */
 
 Route::get('/', function () {
-    Log::info('hello test log');
+    Log::info('Logging from docker');
 
-    $logging = new LoggingClient();
-    $logger  = $logging->psrLogger('hello-app-name');
-    $logger->info('log from stack driver');
+    // $logging = new LoggingClient();
+    // $logger  = $logging->psrLogger('hello-app-name');
+    // $logger->info('log from stack driver');
 
-    // throw new Exception('Error Processing Request');
-    return view('welcome');
+    return vieww('welcome');
 });
