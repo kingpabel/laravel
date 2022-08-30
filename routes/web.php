@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Google\Cloud\Logging\LoggingClient;
 
@@ -16,11 +15,9 @@ use Google\Cloud\Logging\LoggingClient;
 */
 
 Route::get('/', function () {
-    Log::info('Logging from docker');
+    $logging = new LoggingClient();
+    $logger  = $logging->psrLogger('hello-app-name');
+    $logger->info('log from stack driver');
 
-    // $logging = new LoggingClient();
-    // $logger  = $logging->psrLogger('hello-app-name');
-    // $logger->info('log from stack driver');
-
-    return vieww('welcome');
+    return view('welcome');
 });
