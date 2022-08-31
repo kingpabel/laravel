@@ -16,7 +16,7 @@ use Google\Cloud\Logging\LoggingClient;
 */
 
 Route::get('/', function () {
-    Log::info('Logging from docker');
+    Log::info('Logging from docker.Logging from docker.Logging from docker.Logging from docker.Logging from docker.Logging from docker.');
 
     // $logging = new LoggingClient();
     // $logger  = $logging->psrLogger('hello-app-name');
