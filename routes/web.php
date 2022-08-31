@@ -18,11 +18,11 @@ use Google\Cloud\Logging\LoggingClient;
 Route::get('/', function () {
     Log::info('Logging from docker ' . now()->toDateTimeString());
 
-    $logging = new LoggingClient();
+    /* $logging = new LoggingClient();
     $logger  = $logging->psrLogger('hello-app-name');
-    $logger->info('log from stack driver');
+    $logger->info('log from stack driver'); */
 
-    return view('welcome');
+    return env('LOG_CHANNEL');
 
     // why error flayer show like this
     // cloud log working or not
