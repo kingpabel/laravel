@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Google\Cloud\Logging\LoggingClient;
 
@@ -15,9 +16,15 @@ use Google\Cloud\Logging\LoggingClient;
 */
 
 Route::get('/', function () {
-    $logging = new LoggingClient();
-    $logger  = $logging->psrLogger('hello-app-name');
-    $logger->info('log from stack driver');
+    Log::info('Logging from docker');
+
+    // $logging = new LoggingClient();
+    // $logger  = $logging->psrLogger('hello-app-name');
+    // $logger->info('log from stack driver');
 
     return view('welcome');
+
+    // why error flayer show like this
+    // cloud log working or not
+    // schedule & queue
 });
