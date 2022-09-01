@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Google\Cloud\Logging\LoggingClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +14,7 @@ use Google\Cloud\Logging\LoggingClient;
 */
 
 Route::get('/', function () {
-    Log::info('Logging from docker ' . now()->toDateTimeString());
-
-    $logging = new LoggingClient();
-    $logger  = $logging->logger('my-log');
-    $logger->entry('My Log message from docker container of GCP cloud run');
-
-    return $_ENV;
-
+    throw new Exception('Error Processing Request', 1);
     // why error flayer show like this
-    // cloud log working or not
     // schedule & queue
 });

@@ -26,7 +26,6 @@ RUN apt-get update && apt-get install -y \
     libmemcached-dev \
     nginx
 
-RUN pecl install grpc protobuf
 
 # Install supervisor
 RUN apt-get install -y supervisor
