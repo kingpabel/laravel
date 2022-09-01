@@ -19,8 +19,8 @@ Route::get('/', function () {
     Log::info('Logging from docker ' . now()->toDateTimeString());
 
     $logging = new LoggingClient();
-    $logger  = $logging->psrLogger('hello-app-name');
-    $logger->info('log from stack driver');
+    $logger  = $logging->logger('my-log');
+    $logger->entry('My Log message from docker container of GCP cloud run');
 
     return $_ENV;
 
