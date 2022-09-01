@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\RunLogging;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    throw new Exception('Error Processing Request', 1);
-    // why error flayer show like this
-    // schedule & queue
+    // RunLogging::dispatch();
+    return now()->toDayDateTimeString();
+
+    return view('welcome');
 });
