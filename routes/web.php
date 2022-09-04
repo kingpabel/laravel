@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // RunLogging::dispatch();
+    RunLogging::dispatch();
     return now()->toDayDateTimeString();
 
     return view('welcome');
+
+    // tinker
 });
 
 Route::get('schedule', function () {
