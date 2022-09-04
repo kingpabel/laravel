@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             Log::info('Logging from running jobs ' . now()->toDayDateTimeString());
-        })->dailyAt('17:20');
+        })->dailyAt('06:50');
     }
 
     /**

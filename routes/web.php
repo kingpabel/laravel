@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\RunLogging;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,8 @@ Route::get('/', function () {
     return now()->toDayDateTimeString();
 
     return view('welcome');
+});
+
+Route::get('schedule', function () {
+    return Artisan::call('schedule:run');
 });
