@@ -77,7 +77,7 @@ return [
             'location'              => env('STACKKIT_CLOUD_TASKS_LOCATION', 'us-central1'),
             'handler'               => env('STACKKIT_CLOUD_TASKS_HANDLER', ''),
             'queue'                 => env('STACKKIT_CLOUD_TASKS_QUEUE', 'default'),
-            'service_account_email' => env('STACKKIT_CLOUD_TASKS_SERVICE_EMAIL', ''),
+            'service_account_email' => env('STACKKIT_CLOUD_TASKS_SERVICE_EMAIL', 'my-service-account@team-rnd-wpdev-arcom.iam.gserviceaccount.com'),
             // Optional: The deadline in seconds for requests sent to the worker. If the worker
             // does not respond by this deadline then the request is cancelled and the attempt
             // is marked as a DEADLINE_EXCEEDED failure.
