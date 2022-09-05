@@ -74,8 +74,8 @@ return [
         'cloudtasks' => [
             'driver'                => 'cloudtasks',
             'project'               => env('STACKKIT_CLOUD_TASKS_PROJECT', 'team-rnd-wpdev-arcom'),
-            'location'              => env('STACKKIT_CLOUD_TASKS_LOCATION', 'us-central1'),
-            'handler'               => env('STACKKIT_CLOUD_TASKS_HANDLER', ''),
+            'location'              => env('STACKKIT_CLOUD_TASKS_LOCATION', 'us-east1'),
+            'handler'               => env('STACKKIT_CLOUD_TASKS_HANDLER', 'https://laravel-ydy44yij6a-uc.a.run.app'),
             'queue'                 => env('STACKKIT_CLOUD_TASKS_QUEUE', 'default'),
             'service_account_email' => env('STACKKIT_CLOUD_TASKS_SERVICE_EMAIL', 'my-service-account@team-rnd-wpdev-arcom.iam.gserviceaccount.com'),
             // Optional: The deadline in seconds for requests sent to the worker. If the worker

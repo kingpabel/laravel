@@ -2,6 +2,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/gcp_credential.json
 /storage/*.key
 /vendor
 .env
