@@ -21,7 +21,7 @@ Route::get('/', function () {
 
     return view('welcome');
 
-    // tinker
+    // tinker, failed queue
 });
 
 Route::get('schedule', function () {
