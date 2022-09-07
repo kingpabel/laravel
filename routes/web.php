@@ -1,8 +1,9 @@
 <?php
 
 use App\Jobs\RunLogging;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    RunLogging::dispatch();
+    Log::channel('queue')->info('hello');
+    // RunLogging::dispatch();
     return now()->toDayDateTimeString();
 
     return view('welcome');
